@@ -6,7 +6,7 @@ Data science portfolio bridging e-commerce "street smarts" with economic rigor. 
 
 This project is tailored to a Los Angeles/USC-focused case study and includes an admissions-ready notebook.
 
-## Selected Case Study (USC Focus)
+## Selected Case Study 
 - City focus: **Los Angeles**
 - Policy: **Measure ULA (Mansion Tax)**
 - Policy date: **2023-04-01**
