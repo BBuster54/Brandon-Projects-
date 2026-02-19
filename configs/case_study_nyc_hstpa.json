@@ -1,0 +1,21 @@
+{
+  "case_name": "NYC Housing Policy + Behavioral Sentiment",
+  "city": "New York City",
+  "policy_name": "Housing Stability and Tenant Protection Act (HSTPA)",
+  "policy_date": "2019-06-14",
+  "policy_scope": "New York State (major NYC housing market relevance)",
+  "economic_dataset": {
+    "source": "FRED",
+    "series_id": "ATNHPIUS35620Q",
+    "series_description": "NYC Metro All-Transactions House Price Index (Quarterly)",
+    "download_csv": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ATNHPIUS35620Q",
+    "date_col": "DATE",
+    "value_col": "ATNHPIUS35620Q"
+  },
+  "sentiment_focus": {
+    "platform": "Reddit",
+    "query": "student loan forgiveness",
+    "subreddit": "all",
+    "sample_size": 300
+  }
+}

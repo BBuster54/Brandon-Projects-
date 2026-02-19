@@ -1,0 +1,21 @@
+{
+  "case_name": "Los Angeles (USC Focus) Housing Policy + Behavioral Sentiment",
+  "city": "Los Angeles",
+  "policy_name": "Measure ULA (Mansion Tax)",
+  "policy_date": "2023-04-01",
+  "policy_scope": "City of Los Angeles",
+  "economic_dataset": {
+    "source": "FRED",
+    "series_id": "ATNHPIUS31080Q",
+    "series_description": "Los Angeles-Long Beach-Anaheim Metro All-Transactions House Price Index (Quarterly)",
+    "download_csv": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=ATNHPIUS31080Q",
+    "date_col": "DATE",
+    "value_col": "ATNHPIUS31080Q"
+  },
+  "sentiment_focus": {
+    "platform": "Reddit",
+    "query": "student loan forgiveness",
+    "subreddit": "all",
+    "sample_size": 300
+  }
+}
