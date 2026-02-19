@@ -1,27 +1,98 @@
+# Brandon Projects
+
+Data science portfolio bridging practical market intuition with economic rigor. This repo includes policy analytics, NLP sentiment systems, causal impact estimation, and forecasting workflows.
+
 <<<<<<< HEAD
-# Brandon-Projects-
-Data science portfolio bridging e-commerce "street smarts" with economic rigor. Features Python-based arbitrage detectors, inflation trackers, and ML models for fraud and credit risk. Includes NLP sentiment analysis and time-series demand forecasting. View interactive dashboards and deep-dive "Data Stories" for each project. 
-=======
-# Behavioral Incentives + Policy Impact Analytics Project
-
-This project is tailored to a Los Angeles/USC-focused case study and includes an admissions-ready notebook.
-
 ## Selected Case Study 
 - City focus: **Los Angeles**
 - Policy: **Measure ULA (Mansion Tax)**
 - Policy date: **2023-04-01**
 - Economic dataset: **FRED series `ATNHPIUS31080Q`** (LA-Long Beach-Anaheim metro all-transactions house price index, quarterly)
 - Behavioral sentiment topic: **student loan policy discourse** on Reddit
+=======
+## Flagship Project: Behavioral Incentives + Policy Impact Analytics
+>>>>>>> 947a52b (Add GDELT no-key sentiment pipeline, dashboard upgrades, and gitignore)
 
-This setup demonstrates the "human side" of data by pairing expectations/sentiment with measurable market outcomes.
+This project is a comparative policy research platform centered on behavioral economics.
 
-## Project Components
-- `src/sentiment_pipeline.py`: Reddit collection + VADER sentiment labeling
-- `src/analyze_sentiment.py`: daily sentiment trend + volume chart
-- `src/download_fred_series.py`: pulls the chosen FRED economic series
-- `src/policy_eda.py`: pre/post policy comparison and trend visualization
-- `src/run_project.py`: unified runner with `la-case` and `nyc-case` presets
-- `notebooks/admissions_case_study.ipynb`: polished charts + interpretation text for LA
+### Core Questions
+- How do policy shocks change housing market trajectories?
+- Can social sentiment act as a lead indicator for market movement?
+- How do LA and NYC differ in policy response dynamics?
+
+### Case Studies
+- Los Angeles: Measure ULA (policy date: 2023-04-01)
+- New York City: HSTPA Rent Reform (policy date: 2019-06-14)
+
+Economic data source:
+- FRED `ATNHPIUS31080Q` (LA metro house price index)
+- FRED `ATNHPIUS35620Q` (NYC metro house price index)
+
+Sentiment data source:
+- **Default (no key):** GDELT DOC API
+- Optional: Reddit via PRAW API
+
+## High-Impact Additions Implemented
+
+### 1. Causal Impact Analysis
+- Interrupted time series counterfactual modeling
+- Estimated treatment effects post-policy
+- Confidence intervals and observed-vs-counterfactual chart
+- File: `src/causal_impact.py`
+
+### 2. Cross-City Comparison (LA vs NYC)
+- Policy effectiveness comparison
+- Market divergence visualization
+- Optional differential sentiment comparison
+- File: `src/cross_city_compare.py`
+
+### 3. Lagged Sentiment -> Market Prediction
+- Lagged linear models across windows
+- Granger causality tests
+- Best-lag selection with R2/RMSE outputs
+- File: `src/lagged_prediction.py`
+
+### 4. Topic Modeling Layer (NLP Depth)
+- LDA topic modeling over social/news text
+- Topic keyword extraction
+- Topic evolution over time
+- File: `src/topic_modeling.py`
+
+### 5. Mandatory Interactive Dashboard
+- Streamlit dashboard with city dropdown
+- Policy-date slider for scenario simulation
+- Sentiment vs price overlays
+- Counterfactual and cross-city summary panels
+- File: `dashboard/app.py`
+
+## Main Workflows
+- `src/run_project.py` contains all workflows.
+
+Key commands:
+```bash
+python src/run_project.py la-case
+python src/run_project.py nyc-case
+python src/run_project.py full-platform
+python src/run_project.py compare-cities
+python src/run_project.py causal --treated-input data/raw/la_hpi_fred.csv --value-col ATNHPIUS31080Q --policy-date 2023-04-01
+python src/run_project.py predict-lags --monthly-series-input reports/la/monthly_series.csv --sentiment-daily-input reports/la/sentiment_daily.csv
+python src/run_project.py topics --input data/processed/la_sentiment.csv --output-dir reports/la/topics
+```
+
+Use Reddit instead of GDELT:
+```bash
+python src/run_project.py la-case --sentiment-source reddit
+```
+
+## Dashboard
+```bash
+streamlit run dashboard/app.py
+```
+
+The dashboard reads outputs under:
+- `reports/la/`
+- `reports/nyc/`
+- `reports/comparison/`
 
 ## Setup
 ```bash
@@ -31,44 +102,13 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Set your Reddit credentials in `.env`.
+No API keys are required for the default GDELT pipeline.
 
-## Quick Start (LA/USC Case)
-Run everything with one command:
-```bash
-python src/run_project.py la-case
-```
-
-This generates:
-- `data/raw/la_hpi_fred.csv`
-- `data/processed/reddit_sentiment.csv`
-- `reports/policy_trend.png`
-- `reports/policy_summary.csv`
-- `reports/monthly_series.csv`
-
-Then run sentiment trend aggregation:
-```bash
-python src/analyze_sentiment.py --input data/processed/reddit_sentiment.csv --output-dir reports
-```
-
-## Notebook for Admissions-Ready Output
-Open:
-- `notebooks/admissions_case_study.ipynb`
-
-The notebook:
-- Loads your generated files
-- Creates clear visuals
-- Auto-generates interpretation text (hypothesis, key findings, incentive-based explanation, and limits)
-
-## Config Files
-- `configs/case_study_la_usc.json` (primary)
-- `configs/case_study_nyc_hstpa.json` (alternate)
-
-## Optional granular commands
-```bash
-python src/download_fred_series.py --series-id ATNHPIUS31080Q --output data/raw/la_hpi_fred.csv
-python src/sentiment_pipeline.py --query "student loan forgiveness" --subreddit all --limit 300 --output data/processed/reddit_sentiment.csv
-python src/policy_eda.py --input data/raw/la_hpi_fred.csv --date-col DATE --value-col ATNHPIUS31080Q --policy-date 2023-04-01 --output-dir reports
-python src/analyze_sentiment.py --input data/processed/reddit_sentiment.csv --output-dir reports
-```
->>>>>>> 1c2af72 (Initial commit: LA policy + sentiment analytics project)
+## Repo Structure
+- `src/`: analytics pipelines
+- `dashboard/`: interactive app
+- `configs/`: case definitions
+- `data/raw/`: downloaded source datasets
+- `data/processed/`: NLP outputs
+- `reports/la/`, `reports/nyc/`, `reports/comparison/`: generated deliverables
+- `notebooks/`: admissions-ready narrative notebook

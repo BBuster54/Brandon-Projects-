@@ -48,7 +48,7 @@ def run(input_path: str, output_dir: str) -> tuple[pd.DataFrame, str]:
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Analyze saved sentiment dataset.")
-    parser.add_argument("--input", default="data/processed/reddit_sentiment.csv")
+    parser.add_argument("--input", default="data/processed/sentiment.csv")
     parser.add_argument("--output-dir", default="reports")
     args = parser.parse_args()
 

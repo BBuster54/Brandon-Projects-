@@ -1,0 +1,40 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local environment variables
+.env
+.env.*
+!.env.example
+
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# OS/editor
+.DS_Store
+.vscode/
+.idea/
+
+# Build/distribution
+build/
+dist/
+*.egg-info/
+
+# Generated data/report artifacts (keep folder placeholders)
+data/raw/*.csv
+data/processed/*.csv
+reports/**/*.csv
+reports/**/*.png
+reports/**/*.jpg
+reports/**/*.jpeg
+
+# Streamlit cache
+.streamlit/
