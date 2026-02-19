@@ -14,6 +14,7 @@ REPORTS = BASE / "reports"
 
 st.set_page_config(page_title="Behavioral Policy Analytics", layout="wide")
 st.title("Behavioral Policy Analytics Dashboard")
+st.caption("Data source: local master HPI (derived from hpi_master.csv)")
 
 city = st.sidebar.selectbox("City", ["Los Angeles", "New York City"])
 city_key = "la" if city == "Los Angeles" else "nyc"

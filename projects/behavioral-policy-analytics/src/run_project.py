@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 
 from analyze_sentiment import run as run_sentiment_analysis
 from causal_impact import CausalConfig, run as run_causal
@@ -43,8 +44,11 @@ def _run_case(
     report_dir = f"reports/{city_key}"
 
     if not skip_download:
-        fred_df = run_fred_download(fred_series, raw_path)
-        print(f"Downloaded {city_key.upper()} series rows: {len(fred_df)}")
+        if os.path.exists(raw_path):
+            print(f"Using existing local HPI file for {city_key.upper()}: {raw_path}")
+        else:
+            fred_df = run_fred_download(fred_series, raw_path)
+            print(f"Downloaded {city_key.upper()} series rows: {len(fred_df)}")
 
     if not skip_sentiment:
         sent_rows = _run_sentiment_source(sentiment_source, sentiment_query, sentiment_limit, processed_sent)

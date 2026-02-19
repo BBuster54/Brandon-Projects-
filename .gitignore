@@ -7,6 +7,7 @@ env/
 .env
 .env.*
 !.env.example
+!**/.env.example
 
 # Python cache/artifacts
 __pycache__/
@@ -29,12 +30,12 @@ dist/
 *.egg-info/
 
 # Generated data/report artifacts (keep folder placeholders)
-data/raw/*.csv
-data/processed/*.csv
-reports/**/*.csv
-reports/**/*.png
-reports/**/*.jpg
-reports/**/*.jpeg
+**/data/raw/*.csv
+**/data/processed/*.csv
+**/reports/**/*.csv
+**/reports/**/*.png
+**/reports/**/*.jpg
+**/reports/**/*.jpeg
 
 # Streamlit cache
 .streamlit/
