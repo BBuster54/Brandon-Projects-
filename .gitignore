@@ -29,6 +29,9 @@ build/
 dist/
 *.egg-info/
 
+# Locally generated Carbon Footprint Tracker outputs
+carbon-footprint-tracker/output/
+
 # Generated data/report artifacts (keep folder placeholders)
 **/data/raw/*.csv
 **/data/processed/*.csv

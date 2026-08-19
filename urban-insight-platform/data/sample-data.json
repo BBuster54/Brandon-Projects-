@@ -1,0 +1,274 @@
+{
+    "cities": {
+      "New York": {
+        "id": "nyc",
+        "name": "New York City",
+        "state": "NY",
+        "population": 8336817,
+        "area": 302.6,
+        "coordinates": {
+          "lat": 40.7128,
+          "lng": -74.0060
+        },
+        "metrics": {
+          "airQuality": {
+            "aqi": 89,
+            "pm25": 28,
+            "pm10": 45,
+            "ozone": 67,
+            "no2": 42,
+            "so2": 12,
+            "co": 8.5,
+            "lastUpdated": "2024-07-14T10:30:00Z",
+            "trend": "improving",
+            "monthlyAverage": 85
+          },
+          "transportation": {
+            "transitUsage": 68,
+            "trafficCongestion": 78,
+            "evStations": 485,
+            "bikeUsage": 15,
+            "avgCommute": 41,
+            "publicTransitScore": 85,
+            "walkScore": 88
+          },
+          "environment": {
+            "noiseLevel": 72,
+            "carbonEmissions": 267,
+            "greenSpace": 27,
+            "energyEfficiency": 78,
+            "waterQuality": 85,
+            "wasteRecycling": 45,
+            "treeCanopy": 24
+          },
+          "housing": {
+            "density": 73,
+            "affordability": 42,
+            "construction": 156,
+            "medianPrice": 850000,
+            "rentBurden": 58,
+            "homelessness": 2.1
+          }
+        }
+      },
+      "Los Angeles": {
+        "id": "la",
+        "name": "Los Angeles",
+        "state": "CA",
+        "population": 3979576,
+        "area": 468.7,
+        "coordinates": {
+          "lat": 34.0522,
+          "lng": -118.2437
+        },
+        "metrics": {
+          "airQuality": {
+            "aqi": 124,
+            "pm25": 35,
+            "pm10": 52,
+            "ozone": 89,
+            "no2": 38,
+            "so2": 8,
+            "co": 12.2,
+            "lastUpdated": "2024-07-14T10:30:00Z",
+            "trend": "declining",
+            "monthlyAverage": 118
+          },
+          "transportation": {
+            "transitUsage": 32,
+            "trafficCongestion": 89,
+            "evStations": 658,
+            "bikeUsage": 8,
+            "avgCommute": 35,
+            "publicTransitScore": 52,
+            "walkScore": 67
+          },
+          "environment": {
+            "noiseLevel": 68,
+            "carbonEmissions": 312,
+            "greenSpace": 15,
+            "energyEfficiency": 72,
+            "waterQuality": 78,
+            "wasteRecycling": 38,
+            "treeCanopy": 21
+          },
+          "housing": {
+            "density": 45,
+            "affordability": 38,
+            "construction": 189,
+            "medianPrice": 725000,
+            "rentBurden": 55,
+            "homelessness": 3.2
+          }
+        }
+      },
+      "Chicago": {
+        "id": "chi",
+        "name": "Chicago",
+        "state": "IL",
+        "population": 2693976,
+        "area": 227.6,
+        "coordinates": {
+          "lat": 41.8781,
+          "lng": -87.6298
+        },
+        "metrics": {
+          "airQuality": {
+            "aqi": 76,
+            "pm25": 22,
+            "pm10": 38,
+            "ozone": 71,
+            "no2": 35,
+            "so2": 15,
+            "co": 9.8,
+            "lastUpdated": "2024-07-14T10:30:00Z",
+            "trend": "improving",
+            "monthlyAverage": 79
+          },
+          "transportation": {
+            "transitUsage": 55,
+            "trafficCongestion": 65,
+            "evStations": 312,
+            "bikeUsage": 12,
+            "avgCommute": 34,
+            "publicTransitScore": 78,
+            "walkScore": 78
+          },
+          "environment": {
+            "noiseLevel": 65,
+            "carbonEmissions": 198,
+            "greenSpace": 35,
+            "energyEfficiency": 75,
+            "waterQuality": 92,
+            "wasteRecycling": 52,
+            "treeCanopy": 28
+          },
+          "housing": {
+            "density": 58,
+            "affordability": 55,
+            "construction": 98,
+            "medianPrice": 285000,
+            "rentBurden": 48,
+            "homelessness": 1.8
+          }
+        }
+      },
+      "Houston": {
+        "id": "hou",
+        "name": "Houston",
+        "state": "TX",
+        "population": 2320268,
+        "area": 671.7,
+        "coordinates": {
+          "lat": 29.7604,
+          "lng": -95.3698
+        },
+        "metrics": {
+          "airQuality": {
+            "aqi": 98,
+            "pm25": 31,
+            "pm10": 48,
+            "ozone": 85,
+            "no2": 45,
+            "so2": 18,
+            "co": 11.5,
+            "lastUpdated": "2024-07-14T10:30:00Z",
+            "trend": "declining",
+            "monthlyAverage": 102
+          },
+          "transportation": {
+            "transitUsage": 28,
+            "trafficCongestion": 72,
+            "evStations": 245,
+            "bikeUsage": 5,
+            "avgCommute": 28,
+            "publicTransitScore": 45,
+            "walkScore": 52
+          },
+          "environment": {
+            "noiseLevel": 62,
+            "carbonEmissions": 234,
+            "greenSpace": 22,
+            "energyEfficiency": 68,
+            "waterQuality": 85,
+            "wasteRecycling": 35,
+            "treeCanopy": 31
+          },
+          "housing": {
+            "density": 35,
+            "affordability": 68,
+            "construction": 125,
+            "medianPrice": 195000,
+            "rentBurden": 42,
+            "homelessness": 1.2
+          }
+        }
+      },
+      "Phoenix": {
+        "id": "phx",
+        "name": "Phoenix",
+        "state": "AZ",
+        "population": 1608139,
+        "area": 517.6,
+        "coordinates": {
+          "lat": 33.4484,
+          "lng": -112.0740
+        },
+        "metrics": {
+          "airQuality": {
+            "aqi": 105,
+            "pm25": 33,
+            "pm10": 65,
+            "ozone": 88,
+            "no2": 28,
+            "so2": 5,
+            "co": 7.2,
+            "lastUpdated": "2024-07-14T10:30:00Z",
+            "trend": "stable",
+            "monthlyAverage": 108
+          },
+          "transportation": {
+            "transitUsage": 18,
+            "trafficCongestion": 58,
+            "evStations": 198,
+            "bikeUsage": 3,
+            "avgCommute": 26,
+            "publicTransitScore": 38,
+            "walkScore": 45
+          },
+          "environment": {
+            "noiseLevel": 55,
+            "carbonEmissions": 156,
+            "greenSpace": 8,
+            "energyEfficiency": 82,
+            "waterQuality": 78,
+            "wasteRecycling": 28,
+            "treeCanopy": 12
+          },
+          "housing": {
+            "density": 32,
+            "affordability": 62,
+            "construction": 89,
+            "medianPrice": 385000,
+            "rentBurden": 45,
+            "homelessness": 2.8
+          }
+        }
+      }
+    },
+    "apiEndpoints": {
+      "airQuality": "https://api.airnowapi.org/",
+      "transportation": "https://api.transit.land/",
+      "environment": "https://api.epa.gov/",
+      "housing": "https://api.census.gov/"
+    },
+    "dataSourcesCredits": {
+      "airQuality": "EPA AirNow API",
+      "transportation": "Transit Land API, Local Transit Agencies",
+      "environment": "EPA Environmental APIs",
+      "housing": "US Census Bureau, Local Housing Authorities"
+    },
+    "lastUpdated": "2024-07-14T10:30:00Z",
+    "dataRefreshInterval": 3600000,
+    "version": "1.0.0"
+  }

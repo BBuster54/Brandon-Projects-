@@ -1,31 +1,22 @@
-# Urban Insight – City Data Visualization Platform
+# Urban Insight
 
-Urban Insight is a web-based data visualization platform designed to explore how environmental and infrastructure data can help us better understand urban systems.
-
-The platform integrates publicly available datasets and presents them through interactive charts and maps to highlight patterns in city environments.
+Urban Insight is a browser-based dashboard for exploring environmental, mobility, and housing indicators across five U.S. cities. It was built by Brandon Best, a Chemistry, Biochemistry, and Physics student at Fairleigh Dickinson University’s Honors College, to explore how software can make complex civic datasets easier to compare.
 
 ## Features
-- Visualization of air quality and environmental metrics
-- Traffic and transportation data overlays
-- Waste and sustainability indicators
-- Interactive filtering of urban datasets
 
-## Technologies
-- HTML
-- CSS
-- JavaScript
-- Chart.js for data visualization
-- Map-based overlays for geographic data
+- City selector with overview, environment, transportation, and housing views
+- Interactive Chart.js visualizations
+- Responsive dashboard layout
+- A bundled, clearly labeled sample dataset for New York, Los Angeles, Chicago, Houston, and Phoenix
 
-## Project Status
-This project is currently under active development. Current work focuses on integrating environmental datasets and improving interactive visualizations.
+## Run locally
 
-## Future Development
-- Real-time data feeds from public APIs
-- Expanded city infrastructure datasets
-- Predictive analytics for urban sustainability metrics
+Serve the project directory with a local web server; for example, open `index.html` through VS Code’s Live Server extension. A server is required because the dashboard loads `data/sample-data.json` with `fetch()`.
 
-## Motivation
-Cities are complex systems shaped by environmental, economic, and technological factors. This project explores how accessible data visualization tools can help individuals better understand urban challenges such as air pollution, transportation efficiency, and environmental sustainability.
+## Tech
 
-The project also reflects my broader interest in using data and technology to analyze large-scale systems.
+HTML, CSS, vanilla JavaScript, and Chart.js.
+
+## Data note
+
+The included data is a static prototype snapshot dated July 14, 2024. It is intended for demonstration and comparison, not as a source of real-time city readings.

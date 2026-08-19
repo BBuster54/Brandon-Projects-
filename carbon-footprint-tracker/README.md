@@ -1,32 +1,25 @@
 # Carbon Footprint Tracker
 
-The Carbon Footprint Tracker is a Python-based program designed to estimate and visualize an individual's environmental impact based on lifestyle choices such as transportation, energy consumption, and daily habits.
+A Python command-line tool that estimates a household’s monthly carbon footprint across transportation, electricity, home heating, air travel, and waste. It prints a category breakdown, exports a CSV summary, and generates a Matplotlib chart.
 
-The goal of this project is to make environmental data more accessible and to demonstrate how simple computational tools can help individuals understand their environmental footprint.
+## Run
 
-## Features
-- Calculates estimated carbon emissions based on user inputs
-- Tracks emissions across multiple categories:
-  - transportation
-  - household energy use
-  - lifestyle factors
-- Generates visualizations of carbon output using graphs
+```bash
+python3 emissions_calculator.py
+```
+
+Use flags to model a different month:
+
+```bash
+python3 emissions_calculator.py --transport train --commute-miles 350 --electricity-kwh 500 --flight-miles 250
+```
+
+The chart and CSV are written to `output/`.
+
+## Method note
+
+This is an educational prototype. Its emission factors are illustrative estimates, documented in the source code, and should not be used for formal carbon accounting.
 
 ## Technologies
-- Python
-- Pandas
-- Matplotlib
-- CSV data storage
 
-## Project Status
-Functional prototype completed. Future updates will focus on improving the user interface and expanding the environmental impact dataset.
-
-## Future Development
-- Web-based interface
-- Expanded emission calculation models
-- Integration with public environmental datasets
-
-## Motivation
-Understanding environmental impact is an important step toward making more sustainable decisions. This project explores how simple computational tools can help translate everyday behaviors into measurable environmental data.
-
-It also reflects my interest in combining programming with scientific and environmental analysis.
+Python, Matplotlib, CSV, and the standard library.
