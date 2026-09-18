@@ -1,0 +1,420 @@
+@import "tailwindcss";
+
+:root {
+  /* Fey Signature Theme Variables */
+  --background: #060608;       /* Pitch-black background */
+  --foreground: #f4f4f7;       /* Soft crisp white for high readability */
+  --card-bg: #111115;          /* Deep gray-black for container cards */
+  --border-muted: #1e1f24;     /* Razor-thin subtle border lines */
+  --text-muted: #888992;       /* Dimmed text for labels and secondary data */
+  --accent-green: #22c55e;     /* High-contrast neon green for positive metrics */
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card-bg);
+  --color-border-muted: var(--border-muted);
+  --color-text-muted: var(--text-muted);
+  --color-accent-green: var(--accent-green);
+  
+  /* Fey uses clean, tight typography geometric fonts (like Geist, Inter, or San Francisco) */
+  --font-sans: var(--font-geist-sans), "Inter", -apple-system, sans-serif;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  letter-spacing: -0.02em; /* Tight letter spacing makes typography look premium */
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Stock Research Terminal overlay — soft entrance for the floating card */
+@keyframes terminal-overlay-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.terminal-overlay-card {
+  animation: terminal-overlay-in 0.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Fey fade-in — premium, fluid lift transition for view container mounts. */
+@keyframes feyFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hardware-accelerated (compositor-only) fade utility. */
+.animate-fey-fade {
+  animation: feyFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .terminal-overlay-card,
+  .anim-check-ring,
+  .anim-check-draw,
+  .anim-marquee,
+  .anim-pulse-soft,
+  .animate-fey-fade,
+  .animate-fey-marquee,
+  .advisor-bubble {
+    animation: none;
+  }
+
+  .animate-fey-fade {
+    will-change: auto;
+    transform: none;
+  }
+}
+
+/* Connect-flow success check — ring fades/scales in, then the stroke draws. */
+@keyframes check-ring-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes check-draw {
+  from {
+    stroke-dashoffset: 30;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.anim-check-ring {
+  animation: check-ring-in 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.anim-check-draw {
+  stroke-dasharray: 30;
+  animation: check-draw 0.45s 0.15s ease-out both;
+}
+
+/* Step 3 micro marquee — status text glides right-to-left in a loop. */
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(15%);
+  }
+  to {
+    transform: translateX(-85%);
+  }
+}
+
+.anim-marquee {
+  animation: marquee-scroll 6s linear infinite;
+}
+
+/* Phase 2 — running market marquee ticker. The track renders two identical
+   copies of the quote row; sliding to exactly -50% of its own (w-max) width
+   lands one full copy later, producing a seamless infinite loop. */
+@keyframes feyMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-fey-marquee {
+  display: flex;
+  animation: feyMarquee 25s linear infinite;
+}
+
+/* Soft attention dot used by live/encrypted-status indicators. */
+@keyframes pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.anim-pulse-soft {
+  animation: pulse-soft 1.6s ease-in-out infinite;
+}
+
+/* Elegant metrics grid pattern — light transparent CSS border lines */
+.grid-lines {
+  background-image: linear-gradient(
+      to right,
+      rgb(244 244 247 / 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgb(244 244 247 / 0.045) 1px, transparent 1px);
+  background-size: 28px 28px;
+}
+
+/* Wealth Forecast simulation sliders — razor-thin track, crisp round thumb
+   matching the Fey hairline aesthetic. */
+.fey-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--border-muted);
+  outline: none;
+  cursor: pointer;
+}
+
+.fey-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--foreground);
+  border: none;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.fey-range::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: var(--accent-green);
+}
+
+.fey-range::-moz-range-track {
+  height: 2px;
+  border-radius: 999px;
+  background: var(--border-muted);
+}
+
+.fey-range::-moz-range-thumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: var(--foreground);
+  border: none;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
+}
+
+.fey-range::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background: var(--accent-green);
+}
+
+.fey-range:focus-visible {
+  box-shadow: 0 0 0 1px var(--foreground);
+}
+
+/* Phase 3 — AI Advisor chat bubbles: a soft rise-in as tailored advice
+   lines stream into the sidebar history. */
+@keyframes advisorBubbleIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.advisor-bubble {
+  animation: advisorBubbleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Phase 3 — hairline scrollbar for the advisor message history column,
+   matching the razor-thin border aesthetic of the rest of the shell. */
+.fey-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-muted) transparent;
+}
+
+.fey-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.fey-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.fey-scroll::-webkit-scrollbar-thumb {
+  background: var(--border-muted);
+  border-radius: 999px;
+}
+
+.fey-scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Phase 5 — zero-state hero canvas. Replaces the seeded net-worth SVG walk
+   while the aggregate sits at exactly $0: a dashed container carrying a very
+   soft radial sheen so the empty node still reads as a designed surface
+   rather than a hole in the card. Tailwind v4 safe — pure CSS, no plugin. */
+.fey-hero-canvas {
+  background-image: radial-gradient(
+    120% 90% at 50% 0%,
+    rgb(34 197 94 / 0.05) 0%,
+    transparent 62%
+  );
+  transition: border-color 0.3s ease;
+}
+
+.fey-hero-canvas:hover {
+  border-color: rgb(244 244 247 / 0.18);
+}
+
+/* Phase 5 — the Forecast soft-lock veil fades its banner in just behind the
+   blurred, inert engine so the gate never snaps into place. */
+@keyframes feyLockIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.99);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.fey-lock-banner {
+  animation: feyLockIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fey-lock-banner {
+    animation: none;
+  }
+}
+
+/* Phase 6 — AI Advisor loading skeleton. A slow shimmer across a muted bar,
+   sized to the prose it will be replaced by. Tailwind v4 safe: the bars are
+   plain elements carrying this class, and per-bar offsets are applied with
+   arbitrary [animation-delay:*] utilities at the call site. */
+@keyframes feySkeletonPulse {
+  0%,
+  100% {
+    opacity: 0.25;
+    background-position: 0% 50%;
+  }
+  50% {
+    opacity: 0.6;
+    background-position: 100% 50%;
+  }
+}
+
+.fey-skeleton-bar {
+  background-image: linear-gradient(
+    90deg,
+    var(--border-muted) 0%,
+    rgb(244 244 247 / 0.14) 50%,
+    var(--border-muted) 100%
+  );
+  background-size: 200% 100%;
+  animation: feySkeletonPulse 1.6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fey-skeleton-bar {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+/* Phase 7 — Fey auth gateway. A soft, colorless glow behind the headline
+   (the reference screen's single light source) and a three-stop gradient
+   wordmark — the only saturated pixels on an otherwise monochrome page. */
+.fey-auth-glow {
+  background-image: radial-gradient(
+    60% 55% at 50% 0%,
+    rgb(139 126 200 / 0.16) 0%,
+    rgb(244 244 247 / 0.04) 45%,
+    transparent 75%
+  );
+}
+
+.fey-auth-headline {
+  background-image: linear-gradient(
+    100deg,
+    #a78bfa 0%,
+    #f4f4f7 45%,
+    #f0b775 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Phase 7 — floating command dock. Buttons get a hairline lift on hover so
+   the pill reads as tactile chrome rather than a flat icon row, and each
+   carries a small label tooltip that only appears on hover/focus — the dock
+   itself stays icon-only and uncluttered until the user is actually
+   pointing at something. */
+.fey-dock-btn {
+  position: relative;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease,
+    transform 0.15s ease;
+}
+
+.fey-dock-btn:hover,
+.fey-dock-btn:focus-visible {
+  transform: translateY(-1px);
+}
+
+.fey-dock-tip {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%) translateY(2px);
+  white-space: nowrap;
+  border-radius: 6px;
+  border: 1px solid var(--border-muted);
+  background: var(--card-bg);
+  color: var(--foreground);
+  font-size: 10px;
+  letter-spacing: -0.01em;
+  padding: 3px 7px;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+
+.fey-dock-btn:hover .fey-dock-tip,
+.fey-dock-btn:focus-visible .fey-dock-tip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fey-dock-btn,
+  .fey-dock-btn:hover,
+  .fey-dock-btn:focus-visible,
+  .fey-dock-tip {
+    transition: none;
+    transform: translateX(-50%);
+  }
+}
