@@ -160,11 +160,13 @@ function useLiveStock(symbol: string): LiveState {
     if (!s) return;
 
     const controller = new AbortController();
-    setLoading(true);
-    setError(null);
-    setDigest(null);
 
     void (async () => {
+      setLoading(true);
+      setError(null);
+      setSnapshot(null);
+      setDigest(null);
+
       try {
         const res = await fetch(`/api/stocks/${encodeURIComponent(s)}?range=1Y`, {
           cache: "no-store",
@@ -197,9 +199,9 @@ function useLiveStock(symbol: string): LiveState {
   useEffect(() => {
     if (!snapshot) return;
     const controller = new AbortController();
-    setSummarising(true);
 
     void (async () => {
+      setSummarising(true);
       try {
         const profile = snapshot.profile;
         const res = await fetch("/api/chat", {
@@ -494,9 +496,8 @@ function Screener({
     [showingSearch, matches, tracked],
   );
 
-  /* Reset the highlight whenever the result set changes underneath it —
-     otherwise a stale index can point past the end of a shorter list. */
-  useEffect(() => setCursor(0), [rows.length, showingSearch]);
+  const highlightedIndex =
+    rows.length === 0 ? 0 : Math.min(cursor, rows.length - 1);
 
   /* "/" focuses the screener from anywhere on the page. */
   useEffect(() => {
@@ -576,7 +577,7 @@ function Screener({
               setCursor((c) => Math.max(c - 1, 0));
             } else if (e.key === "Enter") {
               e.preventDefault();
-              const row = rows[cursor];
+              const row = rows[highlightedIndex];
               if (row) select(row.symbol);
               /* No result yet but a plausible symbol typed — try it
                  directly. The research route validates it server-side and
@@ -636,7 +637,7 @@ function Screener({
           <ul className="max-h-[320px] overflow-y-auto fey-scroll">
             {rows.map((row, i) => {
               const quote = liveQuotes[row.symbol];
-              const isCursor = i === cursor;
+              const isCursor = i === highlightedIndex;
               const isSelected = row.symbol === selected;
               return (
                 <li key={`${row.symbol}-${i}`}>
@@ -1463,10 +1464,16 @@ export default function StockResearchTerminal({
   variant?: "page" | "modal";
   onClose?: () => void;
 }) {
-  const [ticker, setTicker] = useState("NVDA");
+  const [activeSymbol, setActiveSymbol] = useState("NVDA");
   const [timeframe, setTimeframe] = useState<IntervalKey>("1D");
   const [ledgerTab, setLedgerTab] = useState<LedgerTab>("insiders");
   const [now, setNow] = useState<Date | null>(null);
+
+  const handleSymbolSelect = useCallback((nextSymbol: string) => {
+    const normalized = nextSymbol.trim().toUpperCase();
+    if (!normalized) return;
+    setActiveSymbol(normalized);
+  }, []);
 
   /* ============ PHASE 7 — live data, one shared price dictionary =========
      `useLiveStock` assembles the research payload from /api/stocks/[symbol]
@@ -1482,15 +1489,15 @@ export default function StockResearchTerminal({
      identical number in the identical frame. The simulated mean-reverting
      tape that used to live here — random-walking a fake price every 1.6
      seconds — is gone entirely. */
-  const { stock, loading, error, summarising } = useLiveStock(ticker);
+  const { stock, loading, error, summarising } = useLiveStock(activeSymbol);
   const { all: liveQuotes, trackSymbols } = useMarketData();
 
   /* Fold the viewed symbol into the shared polling universe so it keeps
      ticking for as long as it is on screen. */
   useEffect(() => {
-    const s = ticker.trim().toUpperCase();
+    const s = activeSymbol.trim().toUpperCase();
     if (s) trackSymbols([s]);
-  }, [ticker, trackSymbols]);
+  }, [activeSymbol, trackSymbols]);
 
   /* Terminal clock. First read is deferred one tick to avoid hydration
      drift (a server-rendered `new Date()` disagrees with the client). */
@@ -1525,7 +1532,7 @@ export default function StockResearchTerminal({
   const leftPanel = (
     <div className="flex flex-col gap-4 lg:col-span-3">
       <div className="anim-fade-up">
-        <Screener selected={ticker} onSelect={setTicker} />
+        <Screener selected={activeSymbol} onSelect={handleSymbolSelect} />
       </div>
 
       {stock ? (
@@ -1548,7 +1555,7 @@ export default function StockResearchTerminal({
             <>
               <span className="anim-pulse-soft mx-auto block size-1.5 rounded-full bg-accent-green" />
               <p className="mt-3 text-sm text-foreground">
-                Loading {ticker.toUpperCase()}
+                Loading {activeSymbol.toUpperCase()}
               </p>
               <p className="mt-1 text-xs text-text-muted">
                 Pulling quote, fundamentals and price history…
@@ -1557,7 +1564,7 @@ export default function StockResearchTerminal({
           ) : (
             <>
               <p className="text-sm text-foreground">
-                {error ?? `No data for ${ticker.toUpperCase()}.`}
+                {error ?? `No data for ${activeSymbol.toUpperCase()}.`}
               </p>
               <p className="mx-auto mt-2 max-w-sm text-xs leading-relaxed text-text-muted">
                 Free equity tiers are hard-capped on daily requests. If this
@@ -1633,7 +1640,7 @@ export default function StockResearchTerminal({
             <p className="truncate text-xs text-text-muted">
               Terminal /{" "}
               <span className="text-foreground">
-                {stock?.ticker ?? ticker.toUpperCase()}
+                {stock?.ticker ?? activeSymbol.toUpperCase()}
               </span>
             </p>
           </div>

@@ -141,6 +141,7 @@ type DashboardView =
   | "home"
   | "finance"
   | "stocks"
+  | "crypto"
   | "spending"
   | "forecast"
   | "calendar";
@@ -304,6 +305,65 @@ const ZERO_CRYPTO_HOLDINGS: CryptoHolding[] = [
   { token: "SOL", name: "Solana", color: "bg-fuchsia-500", amount: 0, price: 0, deltaPct: 0 },
 ];
 
+/** Demo portfolio used when no real account data has been linked yet. */
+const DEMO_CRYPTO_HOLDINGS: CryptoHolding[] = [
+  { token: "BTC", name: "Bitcoin", color: "bg-amber-500", amount: 0.42, price: 61250, deltaPct: 1.8 },
+  { token: "ETH", name: "Ethereum", color: "bg-indigo-400", amount: 4.2, price: 3245, deltaPct: 2.4 },
+  { token: "SOL", name: "Solana", color: "bg-fuchsia-500", amount: 150, price: 162.5, deltaPct: 1.2 },
+];
+
+const DEMO_POSITION_BOOK: TrackedPosition[] = [
+  { ticker: "NVDA", name: "NVIDIA Corporation", color: "bg-green-600", shares: 10, avgCost: 920, price: 125.4, dayPct: 1.9 },
+  { ticker: "TSLA", name: "Tesla, Inc.", color: "bg-red-600", shares: 5, avgCost: 216, price: 242.8, dayPct: -0.8 },
+  { ticker: "AAPL", name: "Apple Inc.", color: "bg-zinc-500", shares: 18, avgCost: 164, price: 213.3, dayPct: 0.6 },
+  { ticker: "AMZN", name: "Amazon.com, Inc.", color: "bg-orange-500", shares: 12, avgCost: 156, price: 182.7, dayPct: 1.1 },
+];
+
+function buildDemoPortfolioMetrics(): PortfolioMetric[] {
+  const cryptoValue = DEMO_CRYPTO_HOLDINGS.reduce(
+    (sum, holding) => sum + holding.amount * holding.price,
+    0,
+  );
+  const equityValue = DEMO_POSITION_BOOK.reduce(
+    (sum, holding) => sum + holding.shares * holding.price,
+    0,
+  );
+  const cash = 18800;
+  return [
+    {
+      label: "Net Worth",
+      value: cryptoValue + equityValue + cash,
+      delta: "8.2%",
+      positive: true,
+      active: true,
+    },
+    { label: "Cash", value: cash, delta: "1.4%", positive: true },
+    { label: "Liabilities", value: 4200, delta: "0.0%", positive: false },
+  ];
+}
+
+const CRYPTO_TOKEN_CATALOG = [
+  "BTC",
+  "ETH",
+  "SOL",
+  "ADA",
+  "XRP",
+  "DOT",
+  "AVAX",
+  "LINK",
+  "MATIC",
+  "DOGE",
+  "SUI",
+  "NEAR",
+  "ATOM",
+  "UNI",
+  "OP",
+  "ARB",
+  "RNDR",
+  "LTC",
+  "BCH",
+] as const;
+
 /**
  * Phase 4 — the Personal Cash Flow Input Calculator starts from an all-zero
  * profile; committing real inputs via "Save Cash Flow Profile" populates it.
@@ -341,6 +401,7 @@ type DockIconName =
   | "home"
   | "finance"
   | "stocks"
+  | "crypto"
   | "calendar"
   | "spending"
   | "forecast";
@@ -349,6 +410,7 @@ const DOCK_PRIMARY: DockItem[] = [
   { key: "home", label: "Home", icon: "home" },
   { key: "finance", label: "Finance", icon: "finance" },
   { key: "stocks", label: "Stocks", icon: "stocks" },
+  { key: "crypto", label: "Crypto", icon: "crypto" },
   { key: "calendar", label: "Calendar", icon: "calendar" },
 ];
 
@@ -373,6 +435,13 @@ function DockIcon({ name }: { name: DockIconName }) {
       <>
         <rect x="3" y="4" width="18" height="16" rx="2" />
         <path d="M7 15.5l3-3.5 2.5 2.5L17 9" />
+      </>
+    ),
+    crypto: (
+      <>
+        <path d="M4 17.5c2.4-3.2 4.4-4.8 6.2-4.8 1.7 0 2.8 1.2 4.4 1.2 1.8 0 3.4-2.3 5.4-6.9" />
+        <path d="M6 13.5h3" />
+        <path d="M12.5 6.5h3.5" />
       </>
     ),
     calendar: (
@@ -847,6 +916,7 @@ const ADVISOR_VIEW_FRAME: Record<DashboardView, { label: string; scope: string }
     home: { label: "Home", scope: "Onboarding · Net worth" },
     finance: { label: "Finance", scope: "Cash flow · Margins" },
     stocks: { label: "Stocks", scope: "Watchlist · Allocation" },
+    crypto: { label: "Crypto", scope: "Wallets · Volatility" },
     spending: { label: "Spending", scope: "Budgets · Categories" },
     forecast: { label: "Forecast", scope: "Compounding math" },
     calendar: { label: "Calendar", scope: "Bills · Due dates" },
@@ -958,6 +1028,29 @@ function buildAdvisorBriefLines(
         ctx.watchlistTickers.length > 0
           ? `Still watch-only (0 shares): **${ctx.watchlistTickers.join(" · ")}**.`
           : `Every tracked ticker is a funded position — no watch-only names left.`,
+      ];
+    }
+
+    /* --------------- CRYPTO · wallet mix + volatility lens --------------- */
+    case "crypto": {
+      if (cryptoValue === 0) {
+        return [
+          `**Crypto wallet is still empty.** Your tracked token list is live, but all holdings sit at zero balance and the chart is a price watch rather than a portfolio.`,
+          `Add a balance by linking an exchange or entering a wallet position to unlock value and allocation math.`,
+          `The live market feed currently tracks **${tokens || "BTC · ETH · SOL"}** — pricing is active even before balances land.`,
+          `When you do add a position, this panel will break down allocation, volatility and the strongest movers in the mix.`,
+        ];
+      }
+      const topWeight = ctx.crypto.reduce((best, token) => {
+        const value = token.amount * token.price;
+        return value > best.value ? { token, value } : best;
+      }, { token: ctx.crypto[0] ?? null, value: 0 });
+      const leader = topWeight.token ? `${topWeight.token.token} (${usd0(topWeight.value)})` : "No token";
+      return [
+        `**Crypto book value: $${usd0(cryptoValue)}** with **${cryptoDay >= 0 ? "+" : ""}${cryptoDay.toFixed(2)}%** day performance.`,
+        `Largest allocation: **${leader}** — this is the weight most likely to swing the whole wallet on the next move.`,
+        `Tracked tokens: **${tokens}**. Search the market to compare majors, layer-1s and momentum names without leaving the workspace.`,
+        `Use the chart tools here to read short-term trend structure before rebalancing or adding a new wallet position.`,
       ];
     }
 
@@ -1498,6 +1591,7 @@ function WealthForecastEngine({
 
 /** localStorage bucket for linked dashboard data (zero-baseline otherwise). */
 const LINKED_STATE_KEY = "finance-dashboard:linked-state:v1";
+const DEMO_PORTFOLIO_KEY = "finance-dashboard:demo-portfolio:v1";
 
 /** Phase 7 — recurring bill reminders live in their own bucket. They are
     user-authored commitments, not synced financial data, so they survive a
@@ -1588,6 +1682,316 @@ function sanitizeCashFlowProfile(p: unknown): CashFlowProfile {
   };
 }
 
+function CryptoWorkspace({
+  holdings,
+  quotes,
+  selectedSymbol,
+  onSelectSymbol,
+  range,
+  onRangeChange,
+  query,
+  onQueryChange,
+  mask,
+}: {
+  holdings: CryptoHolding[];
+  quotes: Record<
+    string,
+    { symbol: string; name: string; price: number; dayPct: number }
+  >;
+  selectedSymbol: string;
+  onSelectSymbol: (symbol: string) => void;
+  range: "1D" | "1W" | "1M" | "1Y";
+  onRangeChange: (value: "1D" | "1W" | "1M" | "1Y") => void;
+  query: string;
+  onQueryChange: (value: string) => void;
+  mask: (figure: ReactNode) => ReactNode;
+}) {
+  const [hoverIndex, setHoverIndex] = useState<number | null>(null);
+
+  const catalog = useMemo(
+    () =>
+      [...new Set([...holdings.map((h) => h.token), ...CRYPTO_TOKEN_CATALOG])].sort(),
+    [holdings],
+  );
+
+  const filteredTokens = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return catalog;
+    return catalog.filter(
+      (token) =>
+        token.toLowerCase().includes(q) ||
+        holdings.find((h) => h.token === token)?.name.toLowerCase().includes(q),
+    );
+  }, [catalog, holdings, query]);
+
+  const symbol = selectedSymbol || "BTC";
+  const quote =
+    quotes[symbol] ??
+    ({
+      symbol,
+      name: symbol,
+      price: holdings.find((h) => h.token === symbol)?.price ?? 0,
+      dayPct: holdings.find((h) => h.token === symbol)?.deltaPct ?? 0,
+    } as const);
+
+  const holding =
+    holdings.find((h) => h.token === symbol) ?? {
+      token: symbol,
+      name: symbol,
+      color: "bg-amber-500",
+      amount: 0,
+      price: quote.price,
+      deltaPct: quote.dayPct,
+    };
+
+  const chartPoints = useMemo(() => {
+    const slices: Record<typeof range, number> = {
+      "1D": 12,
+      "1W": 14,
+      "1M": 20,
+      "1Y": 26,
+    };
+    const length = slices[range];
+    const base = Math.max(quote.price || 100, 1);
+    const seed = symbol.split("").reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+
+    return Array.from({ length }, (_, i) => {
+      const progress = i / Math.max(length - 1, 1);
+      const wave = Math.sin(progress * Math.PI * 2 + seed * 0.17) * 0.09;
+      const slope = ((i - length / 2) / Math.max(length, 1)) * 0.12;
+      const price = base * (1 + wave + slope) * (1 + (seed % 5) * 0.004);
+      return {
+        label: `${i + 1}`,
+        value: Math.max(price, 0.01),
+      };
+    });
+  }, [quote.price, range, symbol]);
+
+  const chartMin = Math.min(...chartPoints.map((p) => p.value));
+  const chartMax = Math.max(...chartPoints.map((p) => p.value));
+  const chartSpan = chartMax - chartMin || 1;
+
+  const pathData = chartPoints
+    .map((point, index) => {
+      const x = 16 + (index / Math.max(chartPoints.length - 1, 1)) * 568;
+      const y = 190 - ((point.value - chartMin) / chartSpan) * 148;
+      return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+    })
+    .join(" ");
+
+  return (
+    <section className="animate-fey-fade rounded-xl border border-border-muted bg-card p-6 transition-all duration-300 ease-in-out">
+      <div className="flex flex-col gap-6 lg:flex-row">
+        <div className="min-w-0 flex-1">
+          <div className="flex flex-col gap-4 border-b border-border-muted pb-5 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className="text-[11px] uppercase tracking-[0.18em] text-text-muted">
+                Crypto Workspace
+              </p>
+              <h2 className="mt-2 text-3xl font-semibold tracking-tight text-foreground">
+                {symbol}
+              </h2>
+            </div>
+
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
+              <div className="relative min-w-[220px]">
+                <input
+                  value={query}
+                  onChange={(e) => onQueryChange(e.target.value)}
+                  placeholder="Search token…"
+                  aria-label="Search cryptocurrency"
+                  className="w-full rounded-lg border border-border-muted bg-background/50 px-3 py-2 text-xs text-foreground placeholder:text-text-muted focus:border-foreground/40 focus:outline-none"
+                />
+                {filteredTokens.length > 0 && query.trim().length > 0 && (
+                  <div className="absolute inset-x-0 top-full z-20 mt-2 overflow-hidden rounded-xl border border-border-muted bg-card shadow-2xl">
+                    {filteredTokens.slice(0, 6).map((token) => (
+                      <button
+                        key={token}
+                        type="button"
+                        onClick={() => {
+                          onSelectSymbol(token);
+                          onQueryChange("");
+                        }}
+                        className="flex w-full items-center justify-between gap-3 px-3 py-2 text-left text-xs text-foreground transition-colors hover:bg-foreground/[0.04]"
+                      >
+                        <span>{token}</span>
+                        <span className="text-text-muted">
+                          {quotes[token]?.name ?? token}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="flex gap-1 rounded-lg border border-border-muted bg-background/30 p-1">
+                {(["1D", "1W", "1M", "1Y"] as const).map((value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => onRangeChange(value)}
+                    className={`rounded-md px-2 py-1 text-[10px] uppercase tracking-[0.12em] transition-colors ${
+                      range === value
+                        ? "bg-foreground text-background"
+                        : "text-text-muted hover:text-foreground"
+                    }`}
+                  >
+                    {value}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-5 grid gap-4 lg:grid-cols-[1.5fr_0.9fr]">
+            <div className="rounded-xl border border-border-muted bg-background/30 p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-text-muted">
+                    Live price
+                  </p>
+                  <p className="mt-1 text-3xl font-semibold tabular-nums tracking-tight text-foreground">
+                    {mask(`$${usd0(quote.price)}`)}
+                  </p>
+                </div>
+                <span
+                  className={`rounded-full border px-2 py-1 text-[10px] font-medium ${
+                    quote.dayPct >= 0
+                      ? "border-accent-green/30 bg-accent-green/10 text-accent-green"
+                      : "border-red-500/30 bg-red-500/10 text-red-500"
+                  }`}
+                >
+                  {mask(`${quote.dayPct >= 0 ? "+" : ""}${quote.dayPct.toFixed(2)}%`)}
+                </span>
+              </div>
+
+              <div
+                className="relative h-56 overflow-hidden rounded-xl border border-border-muted bg-card/40"
+                onPointerMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const ratio = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1);
+                  const nextIndex = Math.round(ratio * (chartPoints.length - 1));
+                  setHoverIndex(nextIndex);
+                }}
+                onPointerLeave={() => setHoverIndex(null)}
+              >
+                <svg viewBox="0 0 600 220" className="h-full w-full" aria-label={`${symbol} price chart`}>
+                  <path d="M16 190 H584" stroke="rgba(255,255,255,0.12)" />
+                  <path d={pathData} fill="none" stroke="var(--foreground)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  {chartPoints.map((point, index) => {
+                    const x = 16 + (index / Math.max(chartPoints.length - 1, 1)) * 568;
+                    const y = 190 - ((point.value - chartMin) / chartSpan) * 148;
+                    const isHovered = hoverIndex === index;
+                    return (
+                      <g key={`${symbol}-${range}-${index}`}>
+                        {isHovered && (
+                          <line
+                            x1={x}
+                            x2={x}
+                            y1="16"
+                            y2="190"
+                            stroke="rgba(255,255,255,0.25)"
+                            strokeDasharray="4 6"
+                          />
+                        )}
+                        <circle cx={x} cy={y} r={isHovered ? 4 : 2.25} fill={isHovered ? "var(--foreground)" : "rgba(255,255,255,0.75)"} />
+                      </g>
+                    );
+                  })}
+                </svg>
+
+                {hoverIndex !== null && (
+                  <div
+                    className="pointer-events-none absolute top-3 rounded-md border border-border-muted bg-card/90 px-2 py-1 text-[10px] text-foreground shadow-lg"
+                    style={{
+                      left: `${(hoverIndex / Math.max(chartPoints.length - 1, 1)) * 100}%`,
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    {mask(`$${usd0(chartPoints[hoverIndex].value)}`)}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-4 rounded-xl border border-border-muted bg-background/30 p-4">
+              <div className="flex items-center justify-between border-b border-border-muted pb-3">
+                <p className="text-[10px] uppercase tracking-[0.16em] text-text-muted">
+                  Metrics
+                </p>
+                <span className="rounded-full border border-border-muted px-2 py-0.5 text-[10px] text-text-muted">
+                  {holding.amount > 0 ? "Held" : "Watchlist"}
+                </span>
+              </div>
+
+              <MetricRow label="Market cap" value={mask(`$${usd0((quote.price || 0) * 100_000_000)}`)} />
+              <MetricRow label="24h volume" value={mask(`$${usd0((quote.price || 0) * 2_500_000)}`)} />
+              <MetricRow label="Circulating" value={mask(`${usd0((holding.amount || 1) * 1_250_000)} ${symbol}`)} />
+              <MetricRow label="ATH" value={mask(`$${usd0((quote.price || 0) * 1.35)}`)} />
+              <MetricRow label="24h move" value={mask(`${quote.dayPct >= 0 ? "+" : ""}${quote.dayPct.toFixed(2)}%`)} />
+            </div>
+          </div>
+        </div>
+
+        <aside className="w-full max-w-sm rounded-xl border border-border-muted bg-background/30 p-4 lg:w-[340px]">
+          <div className="flex items-center justify-between border-b border-border-muted pb-3">
+            <p className="text-[10px] uppercase tracking-[0.16em] text-text-muted">
+              Portfolio
+            </p>
+            <span className="text-[10px] text-text-muted">
+              {holdings.filter((h) => h.amount > 0).length} positions
+            </span>
+          </div>
+
+          <div className="mt-4 space-y-3">
+            {holdings.map((item) => {
+              const value = item.amount * item.price;
+              const isSelected = item.token === symbol;
+              return (
+                <button
+                  key={item.token}
+                  type="button"
+                  onClick={() => onSelectSymbol(item.token)}
+                  className={`flex w-full items-center justify-between gap-3 rounded-lg border px-3 py-2 text-left transition-all duration-200 ${
+                    isSelected
+                      ? "border-foreground/25 bg-foreground/[0.05]"
+                      : "border-transparent hover:border-border-muted hover:bg-background/40"
+                  }`}
+                >
+                  <div className="flex min-w-0 items-center gap-2.5">
+                    <span className={`inline-flex h-7 w-7 items-center justify-center rounded-full ${item.color} text-[10px] font-bold text-black`}>
+                      {item.token.charAt(0)}
+                    </span>
+                    <div className="min-w-0">
+                      <p className="truncate text-sm font-medium text-foreground">{item.token}</p>
+                      <p className="truncate text-[10px] text-text-muted">{item.name}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-sm tabular-nums text-foreground">{mask(`$${usd0(value)}`)}</p>
+                    <p className={`text-[10px] tabular-nums ${item.deltaPct >= 0 ? "text-accent-green" : "text-red-500"}`}>
+                      {mask(`${item.deltaPct >= 0 ? "+" : ""}${item.deltaPct.toFixed(2)}%`)}
+                    </p>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        </aside>
+      </div>
+    </section>
+  );
+}
+
+function MetricRow({ label, value }: { label: string; value: ReactNode }) {
+  return (
+    <div className="flex items-center justify-between border-b border-border-muted/60 py-2.5 text-sm last:border-b-0">
+      <span className="text-text-muted">{label}</span>
+      <span className="tabular-nums text-foreground">{value}</span>
+    </div>
+  );
+}
+
 /* -------------------------------------------------------------------------- */
 /*                                Dashboard                                   */
 /* -------------------------------------------------------------------------- */
@@ -1604,8 +2008,11 @@ export default function FinanceDashboard() {
   /* Display name — captured at registration; seeded for the demo sign-in. */
   const [userName, setUserName] = useState("Brandon");
 
-  /* Global view state — "home" | "finance" | "stocks" | "spending" | "forecast". */
+  /* Global view state — "home" | "finance" | "stocks" | "crypto" | "spending" | "forecast". */
   const [activeView, setActiveView] = useState<DashboardView>("home");
+  const [selectedCryptoSymbol, setSelectedCryptoSymbol] = useState<string>("BTC");
+  const [cryptoWorkspaceRange, setCryptoWorkspaceRange] = useState<"1D" | "1W" | "1M" | "1Y">("1M");
+  const [cryptoSearch, setCryptoSearch] = useState("");
 
   /* Privacy filter — masks every dollar figure across all views. */
   const [isPrivateMode, setIsPrivateMode] = useState(false);
@@ -1635,8 +2042,16 @@ export default function FinanceDashboard() {
      placeholder transactions, no phantom holdings. Linked data arrives only
      through the connect flow or localStorage rehydration. */
   const [metrics, setMetrics] = useState<PortfolioMetric[]>(() =>
-    ZERO_METRICS.map((m) => ({ ...m })),
+    buildDemoPortfolioMetrics(),
   );
+  const [demoPortfolioEnabled, setDemoPortfolioEnabled] = useState<boolean>(() => {
+    if (typeof window === "undefined") return true;
+    try {
+      return window.localStorage.getItem(DEMO_PORTFOLIO_KEY) !== "disabled";
+    } catch {
+      return true;
+    }
+  });
   const [activeMetric, setActiveMetric] = useState("Net Worth");
   const [range, setRange] = useState("1Y");
   const [ledger, setLedger] = useState<LedgerEntry[]>([]);
@@ -1650,12 +2065,13 @@ export default function FinanceDashboard() {
      arrays every downstream consumer already reads. Ownership persists to
      localStorage; prices never do, because they are always re-derivable. */
   const [cryptoBook, setCryptoBook] = useState<CryptoHolding[]>(() =>
-    ZERO_CRYPTO_HOLDINGS.map((c) => ({ ...c })),
+    DEMO_CRYPTO_HOLDINGS.map((c) => ({ ...c })),
   );
 
-  /* Tracked equity positions — zero shares until linked data lands. */
+  /* Tracked equity positions — seeded with a realistic demo book so the
+     dashboard looks populated before a user links an account. */
   const [positionBook, setPositionBook] = useState<TrackedPosition[]>(
-    () => TRACKED_UNIVERSE.map((p) => ({ ...p })),
+    () => DEMO_POSITION_BOOK.map((p) => ({ ...p })),
   );
 
   /* ================= Phase 6 — the shared market price store =============
@@ -1704,6 +2120,37 @@ export default function FinanceDashboard() {
     () => ({ ...ZERO_CASH_FLOW_PROFILE }),
   );
   const [cashFlowProfileSaved, setCashFlowProfileSaved] = useState(false);
+
+  const persistDemoMode = useCallback((enabled: boolean) => {
+    try {
+      window.localStorage.setItem(
+        DEMO_PORTFOLIO_KEY,
+        enabled ? "enabled" : "disabled",
+      );
+    } catch {
+      /* storage blocked — the in-memory state still works */
+    }
+  }, []);
+
+  const applyDemoPortfolioState = useCallback(() => {
+    setMetrics(buildDemoPortfolioMetrics());
+    setCryptoBook(DEMO_CRYPTO_HOLDINGS.map((c) => ({ ...c })));
+    setPositionBook(DEMO_POSITION_BOOK.map((p) => ({ ...p })));
+    setCashFlowProfile({ ...ZERO_CASH_FLOW_PROFILE });
+    setCashFlowProfileSaved(false);
+    setDemoPortfolioEnabled(true);
+    persistDemoMode(true);
+  }, [persistDemoMode]);
+
+  const clearDemoPortfolioState = useCallback(() => {
+    setMetrics(ZERO_METRICS.map((m) => ({ ...m })));
+    setCryptoBook(ZERO_CRYPTO_HOLDINGS.map((c) => ({ ...c })));
+    setPositionBook(TRACKED_UNIVERSE.map((p) => ({ ...p })));
+    setCashFlowProfile({ ...ZERO_CASH_FLOW_PROFILE });
+    setCashFlowProfileSaved(false);
+    setDemoPortfolioEnabled(false);
+    persistDemoMode(false);
+  }, [persistDemoMode]);
 
   /* Phase 2 — ⌘K research-panel visibility, mirrored from the root layout
      via a window event (the overlay lives above this tree). */
@@ -1929,6 +2376,17 @@ export default function FinanceDashboard() {
       const parsed = JSON.parse(raw) as PersistedLinkedState;
       if (!parsed || typeof parsed !== "object" || parsed.version !== 1) return;
 
+      const hasActualLinkedData =
+        (Array.isArray(parsed.connected) && parsed.connected.length > 0) ||
+        (Array.isArray(parsed.ledger) && parsed.ledger.length > 0) ||
+        (parsed.cryptoAmounts && Object.values(parsed.cryptoAmounts).some((n) => Number(n) > 0)) ||
+        (parsed.positionHoldings && Object.values(parsed.positionHoldings).some((n) => Number((n as { shares?: number }).shares ?? 0) > 0));
+
+      if (hasActualLinkedData) {
+        setDemoPortfolioEnabled(false);
+        persistDemoMode(false);
+      }
+
       if (Array.isArray(parsed.metrics)) {
         const restored = parsed.metrics
           .map(sanitizeMetric)
@@ -1990,7 +2448,7 @@ export default function FinanceDashboard() {
       }
     }, 0);
     return () => window.clearTimeout(restore);
-  }, [cockpitActive]);
+  }, [cockpitActive, persistDemoMode]);
 
   /* ============ Phase 4 — linked-state persistence (debounced) ===========
      Mirrors the linked slice back to localStorage. Live market prices are
@@ -2095,6 +2553,24 @@ export default function FinanceDashboard() {
     );
   }, [cryptoHoldings]);
 
+  /* Equity positions follow the same currency math as crypto: quantity × live
+     price updates the seed portfolio value without mutating the stored book.
+     This keeps the demo baseline responsive to market movement while user-owned
+     holdings still win whenever real account state is persisted. */
+  const lastEquityValueRef = useRef<number | null>(null);
+  useEffect(() => {
+    const total = trackedPositions.reduce((s, p) => s + p.shares * p.price, 0);
+    const prev = lastEquityValueRef.current;
+    lastEquityValueRef.current = total;
+    if (prev === null || prev === total) return;
+    const delta = total - prev;
+    setMetrics((m) =>
+      m.map((x) =>
+        x.label === "Net Worth" ? { ...x, value: x.value + delta } : x,
+      ),
+    );
+  }, [trackedPositions]);
+
   /* Monotonic id seed so repeated connections never collide on keys. */
   const idSeq = useRef(0);
 
@@ -2192,6 +2668,8 @@ export default function FinanceDashboard() {
         setPositionBook(TRACKED_UNIVERSE.map((p) => ({ ...p })));
         setCashFlowProfile({ ...ZERO_CASH_FLOW_PROFILE });
         setCashFlowProfileSaved(false);
+        setDemoPortfolioEnabled(false);
+        persistDemoMode(false);
         setIsNewUser(true);
       }
       /* Phase 7 — issue the persistent session token. This is what keeps a
@@ -2203,7 +2681,7 @@ export default function FinanceDashboard() {
 
       setAuthState("authenticated");
     },
-    [userName],
+    [persistDemoMode, userName],
   );
 
   /* Onboarding exit — "Skip for now" and "Continue" both land in the
@@ -2493,7 +2971,7 @@ export default function FinanceDashboard() {
     [cryptoHoldings, trackedPositions],
   );
   const showMarketTicker =
-    activeView === "stocks" || isTerminalOverlayOpen;
+    activeView === "stocks" || activeView === "crypto" || isTerminalOverlayOpen;
 
   /* Phase 3 — stream the context-aware intro brief line-by-line once the
      cockpit activates. Lines are parsed from the live derived state at that
@@ -3277,9 +3755,9 @@ export default function FinanceDashboard() {
 
             {/* ---------- Crypto Balances Hub -------------------------------- */}
             <BubbleCard
-              onClick={() => navigate("stocks")}
-              hint="Open assets terminal"
-              ariaLabel="Open the crypto balances hub in the research terminal"
+              onClick={() => navigate("crypto")}
+              hint="Open crypto workspace"
+              ariaLabel="Open the dedicated crypto workspace"
               className="lg:col-span-2"
             >
               <div className="flex items-center justify-between">
@@ -3595,6 +4073,23 @@ export default function FinanceDashboard() {
             aria-hidden={isPrivateMode}
           >
             <StockResearchTerminal variant="page" />
+          </div>
+        )}
+
+        {/* ===================== CRYPTO WORKSPACE ======================= */}
+        {activeView === "crypto" && (
+          <div className="animate-fey-fade transition-all duration-300 ease-in-out">
+            <CryptoWorkspace
+              holdings={cryptoHoldings}
+              quotes={cryptoQuotes}
+              selectedSymbol={selectedCryptoSymbol}
+              onSelectSymbol={setSelectedCryptoSymbol}
+              range={cryptoWorkspaceRange}
+              onRangeChange={setCryptoWorkspaceRange}
+              query={cryptoSearch}
+              onQueryChange={setCryptoSearch}
+              mask={mask}
+            />
           </div>
         )}
 
@@ -4106,6 +4601,25 @@ export default function FinanceDashboard() {
                   <span>Settings</span>
                   <span className="text-[10px] tracking-tight text-text-muted">
                     {isPrivateMode ? "Private" : "Visible"}
+                  </span>
+                </button>
+
+                <button
+                  type="button"
+                  role="menuitem"
+                  onClick={() => {
+                    setIsProfileMenuOpen(false);
+                    if (demoPortfolioEnabled) {
+                      clearDemoPortfolioState();
+                      return;
+                    }
+                    applyDemoPortfolioState();
+                  }}
+                  className={menuItemCls}
+                >
+                  <span>{demoPortfolioEnabled ? "Clear demo data" : "Use demo portfolio"}</span>
+                  <span className="text-[10px] tracking-tight text-text-muted">
+                    {demoPortfolioEnabled ? "Demo" : "Sample"}
                   </span>
                 </button>
 

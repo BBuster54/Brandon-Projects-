@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Running Market Marquee Ticker — Phase 2.
+ * Running Market Marquee Ticker — Phase 2 (Optimized).
  *
  * A sleek quote bar pinned to the absolute bottom of the viewport. The track
  * is a double-looped flex row: two identical copies of the quote sequence are
@@ -50,6 +50,7 @@ function QuoteRow({
           className="flex items-center gap-2 whitespace-nowrap px-5 text-xs tracking-tight"
         >
           <span className="font-medium text-foreground">{q.symbol}</span>
+          {/* Added tabular-nums explicitly for stable numeric layout */}
           <span className="tabular-nums text-text-muted">
             ${usd2(q.price)}
           </span>
@@ -74,6 +75,11 @@ export default function MarketMarqueeTicker({
   quotes: TickerQuote[];
   masked: boolean;
 }) {
+  // Guard clause: Return null early if no quotes are provided to prevent empty DOM rendering
+  if (!quotes || quotes.length === 0) {
+    return null;
+  }
+
   return (
     <div
       role="marquee"
@@ -82,13 +88,12 @@ export default function MarketMarqueeTicker({
         masked ? "blur-md" : ""
       }`}
     >
-      {/* Double-looped track: two identical copies + the translateX(-50%)
-          keyframe = seamless infinite glide. `w-max` sizes the track to its
-          content so −50% lands exactly one copy later; `shrink-0` keeps both
-          halves intact inside the overflow-hidden bar. */}
-      <div className="animate-fey-marquee w-max">
-        <QuoteRow copy="a" quotes={quotes} hidden={false} />
-        <QuoteRow copy="b" quotes={quotes} hidden />
+      {/* Added group container with pause-on-hover utility for accessibility compliance */}
+      <div className="group flex w-max items-center">
+        <div className="animate-fey-marquee flex w-max group-hover:[animation-play-state:paused]">
+          <QuoteRow copy="a" quotes={quotes} hidden={false} />
+          <QuoteRow copy="b" quotes={quotes} hidden />
+        </div>
       </div>
     </div>
   );
