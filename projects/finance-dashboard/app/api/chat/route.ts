@@ -267,6 +267,14 @@ function fallbackReply(question: string, ctx: DashboardContext): string {
 /* -------------------------------------------------------------------------- */
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get("content-length") ?? 0);
+  if (Number.isFinite(contentLength) && contentLength > 32_000) {
+    return NextResponse.json(
+      { reply: "- That request is too large. Please ask a shorter question.", source: "fallback" },
+      { status: 413 },
+    );
+  }
+
   let body: ChatRequest;
   try {
     body = (await request.json()) as ChatRequest;
@@ -301,6 +309,7 @@ export async function POST(request: Request) {
             (t.role === "user" || t.role === "advisor"),
         )
         .slice(-8)
+        .map((turn) => ({ ...turn, body: turn.body.slice(0, 600) }))
     : [];
 
   const apiKey = process.env.GEMINI_API_KEY;

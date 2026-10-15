@@ -39,7 +39,7 @@ export async function GET(
   { params }: { params: Promise<{ symbol: string }> },
 ) {
   const { symbol: raw } = await params;
-  const symbol = decodeURIComponent(raw ?? "").trim().toUpperCase();
+  const symbol = (raw ?? "").trim().toUpperCase();
 
   if (!/^[A-Z0-9.\-]{1,10}$/.test(symbol)) {
     return NextResponse.json(

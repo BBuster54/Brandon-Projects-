@@ -169,7 +169,7 @@ export default function BillCalendar({
   const leadingBlanks = new Date(year, monthIndex, 1).getDay();
 
   /* day-of-month → bills falling on it, resolved for THIS month's length. */
-  const billsByDay = useMemo(() => {
+  const billsByDay = (() => {
     const map = new Map<number, Bill[]>();
     for (const bill of bills) {
       const day = resolveBillDay(bill, year, monthIndex);
@@ -178,7 +178,7 @@ export default function BillCalendar({
       else map.set(day, [bill]);
     }
     return map;
-  }, [bills, year, monthIndex]);
+  })();
 
   const monthlyTotal = useMemo(
     () => bills.reduce((sum, b) => sum + b.amount, 0),
@@ -226,13 +226,13 @@ export default function BillCalendar({
 
   /* Upcoming obligations in the next 14 days of the current month — the
      roster the advisor sidebar mirrors. */
-  const upcoming = useMemo(() => {
+  const upcoming = (() => {
     if (!isCurrentMonth || todayDate === null) return [];
     return bills
       .map((b) => ({ bill: b, day: resolveBillDay(b, year, monthIndex) }))
       .filter((r) => r.day >= todayDate && r.day <= todayDate + 14)
       .sort((a, b) => a.day - b.day);
-  }, [bills, isCurrentMonth, todayDate, year, monthIndex]);
+  })();
 
   return (
     <div className="animate-fey-fade grid gap-6 lg:grid-cols-3">

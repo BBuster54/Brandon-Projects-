@@ -88,9 +88,9 @@ const MarketDataContext = createContext<MarketDataValue | null>(null);
 const BASE_SYMBOLS = ["NVDA", "TSLA", "AAPL", "AMZN"];
 
 /** Crypto is cheap and volatile — poll fast. */
-const CRYPTO_INTERVAL_MS = 3_000;
+const CRYPTO_INTERVAL_MS = 10_000;
 /** Equities are quota-expensive — poll slow; the server caches on top. */
-const EQUITY_INTERVAL_MS = 30_000;
+const EQUITY_INTERVAL_MS = 60_000;
 
 /* -------------------------------------------------------------------------- */
 /*                                  Provider                                  */
@@ -243,13 +243,17 @@ export function MarketDataProvider({
   useEffect(() => {
     if (!enabled) return;
     const controller = new AbortController();
-    void fetchCrypto(controller.signal);
+    const initialId = window.setTimeout(
+      () => void fetchCrypto(controller.signal),
+      0,
+    );
     const id = window.setInterval(
       () => void fetchCrypto(controller.signal),
       CRYPTO_INTERVAL_MS,
     );
     return () => {
       controller.abort();
+      window.clearTimeout(initialId);
       window.clearInterval(id);
     };
   }, [enabled, fetchCrypto]);
@@ -257,13 +261,17 @@ export function MarketDataProvider({
   useEffect(() => {
     if (!enabled) return;
     const controller = new AbortController();
-    void fetchEquities(controller.signal);
+    const initialId = window.setTimeout(
+      () => void fetchEquities(controller.signal),
+      0,
+    );
     const id = window.setInterval(
       () => void fetchEquities(controller.signal),
       EQUITY_INTERVAL_MS,
     );
     return () => {
       controller.abort();
+      window.clearTimeout(initialId);
       window.clearInterval(id);
     };
     /* `symbols` is a dependency on purpose: adding a ticker from the
@@ -414,16 +422,12 @@ export function useTickerSearch(query: string, range = "1Y") {
   /* ---- Debounced symbol search ---------------------------------------- */
   useEffect(() => {
     const q = query.trim();
-    if (q.length < 1) {
-      setMatches([]);
-      setSearching(false);
-      return;
-    }
+    if (q.length < 1) return;
 
-    setSearching(true);
     const controller = new AbortController();
     const timer = window.setTimeout(() => {
       void (async () => {
+        setSearching(true);
         try {
           const res = await fetch(
             `/api/stocks?search=${encodeURIComponent(q)}`,
@@ -491,5 +495,14 @@ export function useTickerSearch(query: string, range = "1Y") {
    */
   const livePrice = snapshot ? (all[snapshot.symbol] ?? null) : null;
 
-  return { matches, searching, snapshot, livePrice, loading, error, load };
+  const hasQuery = query.trim().length > 0;
+  return {
+    matches: hasQuery ? matches : [],
+    searching: hasQuery && searching,
+    snapshot,
+    livePrice,
+    loading,
+    error,
+    load,
+  };
 }

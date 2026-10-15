@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Finance Dashboard
 
-## Getting Started
+A responsive personal-finance dashboard for monitoring account balances, transactions, market quotes, crypto prices, bills, and portfolio activity. It is built with Next.js App Router, React, TypeScript, and Tailwind CSS.
 
-First, run the development server:
+## What is live data vs. local data
+
+- **Equities:** server-side Alpha Vantage adapter, with batched symbols, input validation, TTL caching, a daily request budget, and last-known-good fallback.
+- **Crypto:** server-side CoinGecko adapter, with a short cache, timeout protection, and cached fallback if the upstream provider is unavailable.
+- **AI assistant:** optional server-side Gemini integration. It never exposes its API key to the browser and responds with a clear fallback when unavailable.
+- **Accounts, budgets, transactions, bills, and goals:** currently local dashboard data. They are intentionally separate from provider-backed market data so the app does not imply a live bank connection it does not have.
+
+The browser refreshes crypto no more than every 10 seconds and equities no more than every 60 seconds. The server caches upstream responses as an additional protection against duplicate requests and provider rate limits.
+
+## Local setup
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Copy `.env.example` to `.env.local` and add only the provider keys you plan to use. Do not commit `.env.local`.
+
+3. Run the app:
+
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000).
+
+## Environment variables
+
+| Variable | Purpose | Required |
+| --- | --- | --- |
+| `WALL_ST_API_KEY` | Alpha Vantage stock quote, search, profile, and candle data | For live equity data |
+| `COINGECKO_API_KEY` | CoinGecko crypto price data | For authenticated CoinGecko access |
+| `COINGECKO_TIER` | `demo` or `pro`, which selects the correct CoinGecko host and header | No; defaults to `demo` |
+| `GEMINI_API_KEY` | Gemini-powered assistant responses | For live assistant responses |
+| `GEMINI_MODEL` | Gemini model identifier | No; defaults to `gemini-3.6-flash` |
+| `CRYPTO_CACHE_TTL_MS` | Server-side crypto cache duration in milliseconds | No; defaults to `10000` |
+| `STOCK_API_DAILY_BUDGET` | Maximum Alpha Vantage upstream calls allowed per process each day | No; defaults to `25` |
+
+Missing or unavailable providers degrade gracefully: quotes retain their last successful values where possible, and unavailable features explain their status instead of failing the page.
+
+## Quality checks
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Run both commands before deploying. The production build also checks TypeScript and route compilation.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Deploy the `projects/finance-dashboard` directory as its own Vercel project. Configure the same environment variables in Vercel’s Production environment; keys belong in Vercel environment settings, never in source control. After any credentials have been shared outside their intended secret store, rotate them with the provider before production deployment.
