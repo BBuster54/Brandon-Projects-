@@ -3,6 +3,10 @@
 This repository is organized as a multi-project portfolio.
 
 ## Projects
+- [Carbon Footprint Tracker](carbon-footprint-tracker/README.md) — a static web calculator and Python CLI sharing versioned emission factors, validation and known-answer tests.
+- [Finance Dashboard](projects/finance-dashboard/README.md)
+- [Urban Insight](urban-insight-platform/README.md)
+- [Computational Drug Discovery](computational-drug-discovery/README.md)
 - [Behavioral Policy Analytics](projects/behavioral-policy-analytics/README.md)
 
 ## Add a new project

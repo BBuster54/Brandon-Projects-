@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carbon Footprint Tracker — Brandon Best</title>
+<meta name="description" content="Explore your monthly carbon footprint across six categories, compare changes, and understand the assumptions behind every estimate.">
+<meta property="og:title" content="Carbon Footprint Tracker"><meta property="og:description" content="Six categories. One clearer picture of your monthly footprint."><meta property="og:type" content="website"><meta property="og:url" content="https://final-portfolio-website.vercel.app/demos/carbon-footprint-tracker/"><meta property="og:image" content="https://final-portfolio-website.vercel.app/images/carbon-footprint-tracker.png"><meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://final-portfolio-website.vercel.app/demos/carbon-footprint-tracker/">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin"><link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preload" href="fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin><link rel="stylesheet" href="css/styles.css"><script src="js/main.js" type="module"></script>
+</head>
+<body>
+<a href="#calculator" class="skip-link">Skip to calculator</a>
+<header class="site-header"><a href="/projects">← Back to portfolio</a><div><a href="https://github.com/BBuster54/Brandon-Projects-/tree/main/carbon-footprint-tracker">GitHub ↗</a><button id="theme" aria-label="Change color theme">Theme: system</button></div></header>
+<main class="container">
+<section class="intro"><p class="byline">An environmental data tool by Brandon Best</p><h1>A clearer view of<br>your carbon footprint.</h1><p>Understand what makes up your month. Explore changes that could make a difference.</p><p class="notice">An educational estimate, not a verified carbon inventory. Source verification is in progress.</p></section>
+<p id="load-status" role="status">Loading the shared emissions model…</p>
+<noscript><p>This calculator needs JavaScript. You can also run the Python CLI from the source repository.</p></noscript>
+<div class="app-grid">
+<section class="inputs" id="calculator" tabindex="-1"><h2>Your month</h2><p class="muted">Enter your usage. Your estimate updates as you type.</p>
+<form id="footprint-form" novalidate>
+<fieldset class="household"><legend>Who is this estimate for?</legend><div class="field"><label for="household">People in your household</label><input id="household" name="household" type="number" min="1" max="1000" step="1" value="1" aria-describedby="household-error"><span id="household-error" class="field-message"></span></div>
+<div class="field"><label for="scope">Display results for</label><select id="scope" name="scope"><option value="person">One person</option><option value="household">Whole household</option></select></div>
+<p class="input-note"><strong>Per person:</strong> commute, flights, diet.<br><strong>Shared:</strong> electricity, heating, waste. Shared inputs are divided by household size for one-person results. Household results assume everyone has the same personal habits.</p></fieldset>
+<div class="field-grid"><div class="field"><label for="transport">Travel mode</label><select id="transport" name="transport" aria-describedby="transport-hint transport-error"><option value="car">Car</option><option value="bus">Bus</option><option value="train">Train</option><option value="bike">Bike</option><option value="walk">Walk</option></select><small id="transport-hint">Per-person travel</small><span id="transport-error" class="field-message"></span></div>
+<div class="field"><label for="distance">Commute distance</label><input id="distance" name="distance" type="number" min="0" max="10000000" step="any" value="600" aria-describedby="distance-hint distance-error"><small id="distance-hint">Per-person travel</small><span id="distance-error" class="field-message"></span></div>
+<div class="field"><label for="distanceUnit">Distance unit</label><select id="distanceUnit" name="distanceUnit" aria-describedby="distanceUnit-hint distanceUnit-error"><option value="miles">Miles</option><option value="km">Kilometers</option></select><small id="distanceUnit-hint">Applies to commute and flights</small><span id="distanceUnit-error" class="field-message"></span></div>
+<div class="field"><label for="period">Commute frequency</label><select id="period" name="period" aria-describedby="period-hint period-error"><option value="month">Per month</option><option value="week">Per week</option></select><small id="period-hint">Weekly × 52 ÷ 12</small><span id="period-error" class="field-message"></span></div>
+<div class="field"><label for="electricity">Electricity · kWh / month</label><input id="electricity" name="electricity" type="number" min="0" max="10000000" step="any" value="650" aria-describedby="electricity-hint electricity-error"><small id="electricity-hint">Shared household usage</small><span id="electricity-error" class="field-message"></span></div>
+<div class="field"><label for="gas">Natural gas · therms / month</label><input id="gas" name="gas" type="number" min="0" max="10000000" step="any" value="25" aria-describedby="gas-hint gas-error"><small id="gas-hint">Shared household usage</small><span id="gas-error" class="field-message"></span></div>
+<div class="field"><label for="flights">Flights · distance / month</label><input id="flights" name="flights" type="number" min="0" max="10000000" step="any" value="0" aria-describedby="flights-hint flights-error"><small id="flights-hint">Per person, all flight legs</small><span id="flights-error" class="field-message"></span></div>
+<div class="field"><label for="waste">Landfill waste · bags / month</label><input id="waste" name="waste" type="number" min="0" max="10000000" step="any" value="8" aria-describedby="waste-hint waste-error"><small id="waste-hint">Shared household usage; bag size unspecified</small><span id="waste-error" class="field-message"></span></div>
+<div class="field"><label for="diet">Diet pattern</label><select id="diet" name="diet" aria-describedby="diet-hint diet-error"><option value="average">Mixed</option><option value="meat">Meat-heavy</option><option value="vegetarian">Vegetarian</option><option value="vegan">Vegan</option></select><small id="diet-hint">Per person, 30 days / month</small><span id="diet-error" class="field-message"></span></div></div>
+<button type="submit" class="sr-only" tabindex="-1">Update estimate</button>
+</form></section>
+<section class="results" aria-labelledby="results-title"><div class="results-inner">
+<div class="result-heading"><h2 id="results-title">Your footprint</h2><span id="basis" class="muted">Per person, per month</span></div>
+<p class="total"><span id="total">—</span><span class="unit">kg CO₂e</span></p>
+<p id="projection" class="muted">Monthly estimate and annual projection</p>
+<div id="footprint-bar" class="footprint-bar" aria-hidden="true"></div>
+<ol id="breakdown" class="breakdown" aria-label="Emissions by category, largest first"></ol>
+<p id="range" class="range">Assumed uncertainty range</p><p class="small">Bounds are summed across categories. <a href="#methodology">See assumptions</a>.</p>
+<div class="insight"><h3>Your biggest lever</h3><p id="insight">Enter your usage to explore a modeled saving.</p></div>
+<p id="invalid-status" role="status" class="error"></p>
+<!-- phase-two-results -->
+</div></section></div>
+<!-- phase-two-section -->
+<!-- phase-three-section -->
+<section id="methodology" class="methodology"><h2>Every number has an assumption.</h2><p id="factor-version"></p>
+<details><summary>Explore the model and emission factors</summary>
+<p>Weekly commuting is converted using 52 ÷ 12 weeks per month. Kilometers are converted at 1.609344 km per mile. Diet uses 30 days; annual projections multiply the monthly estimate by 12. CO₂e means carbon dioxide equivalent.</p>
+<p><strong>Uncertainty:</strong> high confidence uses ±10%, medium ±25%, low ±50%. Total lower and upper bounds are the sums of the category bounds. We use summed bounds, not quadrature: there is no evidence that factor errors are independent. These are assumed sensitivity bands, not statistical confidence intervals.</p>
+<p><strong>Limitations:</strong> factors have differing system boundaries and remain unverified. Zero for walking and cycling covers direct operational emissions only. Flight effects, local electricity mix, food sourcing, waste composition and bag size are not modeled. Household results assume equal personal habits. The tool excludes purchases, public services and other emissions.</p>
+<div class="table-wrap" tabindex="0" role="region" aria-label="Emission factors"><table><caption>Shared model factors</caption><thead><tr><th scope="col">Factor</th><th scope="col">Value and unit</th><th scope="col">Source</th><th scope="col">Year</th><th scope="col">Confidence</th></tr></thead><tbody id="factor-table"></tbody></table></div>
+</details></section>
+<p id="announcement" class="sr-only" aria-live="polite" aria-atomic="true"></p>
+</main>
+<footer class="site-footer"><p>Built by Brandon Best · Exploring environmental data through software.</p><a href="/projects">Back to portfolio</a><a href="https://github.com/BBuster54/Brandon-Projects-/tree/main/carbon-footprint-tracker">Source on GitHub ↗</a></footer>
+</body></html>
+
