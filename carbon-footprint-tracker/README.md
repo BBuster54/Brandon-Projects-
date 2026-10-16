@@ -66,7 +66,7 @@ The app includes a restrictive CSP meta policy. `vercel.json` sets CSP, frame re
 Educational estimates only, with unverified, heterogeneous factor boundaries. No live utility data, verified lifecycle accounting or comprehensive personal inventory. Bike and walking zeros exclude food and manufacturing; flight altitude effects, regional grids and waste composition are not modeled. Verify factors and their boundaries before considering benchmarks.
 
 Phase 1: unified model, live calculation, validation, results, uncertainty, accessibility, methodology, tests and documentation.
-Phase 2: comparison scenarios and monthly goals.
+Phase 2: baseline/scenario comparison, four composable presets, custom edits, per-category absolute and percentage differences, a diverging savings chart with a full table alternative, and monthly goals. Household size or reporting scope changes reset comparisons. A zero baseline has no percentage delta. Benchmarks stay disabled pending a comparable verified source.
 Phase 3: local history, sharing, exports and print reports.
 
 ## License

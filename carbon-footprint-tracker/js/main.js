@@ -1,6 +1,7 @@
 import { defaults, validate, calculate, biggestLever } from "./model.js";
 import { renderResults, renderMethodology } from "./render.js";
 import { readStorage, writeStorage } from "./state.js";
+import { initScenarios } from "./scenarios.js";
 const form=document.querySelector("#footprint-form");
 const status=document.querySelector("#load-status");
 let data, currentInput, currentResult, timer;
@@ -28,7 +29,7 @@ form.addEventListener("submit",event=>{event.preventDefault();clearTimeout(timer
 try {
   const response=await fetch("data/factors.json"); if(!response.ok)throw new Error("Model unavailable");
   data=await response.json();setInput(defaults);renderMethodology(data);status.hidden=true;
-  // phase-two-init
+  const scenarios=initScenarios({getInput,setInput,update,data});
   // phase-three-init
   update();
 }catch{status.textContent="The emissions model could not load. Reload this page to try again.";form.querySelectorAll("input,select").forEach(c=>c.disabled=true);}
