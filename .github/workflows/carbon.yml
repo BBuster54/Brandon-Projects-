@@ -31,11 +31,15 @@ jobs:
           python -m http.server 4174 &
           npm run test:browser
       - run: npm run lighthouse
+      - name: Lighthouse metric diagnostics
+        if: always()
+        run: node scripts/lighthouse-diagnostics.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: carbon-lighthouse
           path: carbon-footprint-tracker/.lighthouseci
+          include-hidden-files: true
       - uses: actions/upload-artifact@v4
         if: always()
         with:
