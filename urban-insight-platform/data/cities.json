@@ -1,0 +1,66 @@
+{
+  "version": "2.0.0",
+  "note": "Approximate city-center map anchors, not measurement-station locations. Census place/state FIPS are verified against the fetched response.",
+  "cities": [
+    {
+      "id": "nyc",
+      "name": "New York City",
+      "state": "NY",
+      "lat": 40.7128,
+      "lon": -74.006,
+      "fips": {
+        "state": "36",
+        "place": "51000"
+      },
+      "timeZone": "America/New_York"
+    },
+    {
+      "id": "la",
+      "name": "Los Angeles",
+      "state": "CA",
+      "lat": 34.0522,
+      "lon": -118.2437,
+      "fips": {
+        "state": "06",
+        "place": "44000"
+      },
+      "timeZone": "America/Los_Angeles"
+    },
+    {
+      "id": "chi",
+      "name": "Chicago",
+      "state": "IL",
+      "lat": 41.8781,
+      "lon": -87.6298,
+      "fips": {
+        "state": "17",
+        "place": "14000"
+      },
+      "timeZone": "America/Chicago"
+    },
+    {
+      "id": "hou",
+      "name": "Houston",
+      "state": "TX",
+      "lat": 29.7604,
+      "lon": -95.3698,
+      "fips": {
+        "state": "48",
+        "place": "35000"
+      },
+      "timeZone": "America/Chicago"
+    },
+    {
+      "id": "phx",
+      "name": "Phoenix",
+      "state": "AZ",
+      "lat": 33.4484,
+      "lon": -112.074,
+      "fips": {
+        "state": "04",
+        "place": "55000"
+      },
+      "timeZone": "America/Phoenix"
+    }
+  ]
+}

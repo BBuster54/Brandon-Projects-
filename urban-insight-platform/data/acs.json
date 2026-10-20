@@ -1,0 +1,10 @@
+{
+  "version": "2.0.0",
+  "status": "not-loaded",
+  "vintage": 2024,
+  "retrievedAt": null,
+  "source": "US Census Bureau, 2020–2024 ACS five-year estimates",
+  "sourceUrl": "https://api.census.gov/data/2024/acs/acs5",
+  "tables": ["B01003", "B25077", "B25064", "B25070", "B08301", "B08303"],
+  "cities": {}
+}

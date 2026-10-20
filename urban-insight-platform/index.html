@@ -1,52 +1,275 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Urban Insight — Smart City Dashboard</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <header class="header">
-    <div class="container">
-      <h1>Urban Insight</h1>
-      <p>Explore environmental, mobility, and housing indicators across U.S. cities</p>
-    </div>
-  </header>
-
-  <nav class="nav">
-    <div class="container nav-container">
-      <ul class="nav-links">
-        <li><a href="#" data-view="overview" class="active">Overview</a></li>
-        <li><a href="#" data-view="environment">Environment</a></li>
-        <li><a href="#" data-view="transportation">Transportation</a></li>
-        <li><a href="#" data-view="housing">Housing</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <section class="filters">
-    <div class="container filters-container">
-      <div class="filter-group">
-        <label for="citySelector">City</label>
-        <select id="citySelector"></select>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Urban Insight — city data, with context</title>
+    <meta
+      name="description"
+      content="Explore modeled air quality and official Census housing and commute estimates for five US cities. Every metric carries its source and freshness."
+    />
+    <meta property="og:title" content="Urban Insight" />
+    <meta
+      property="og:description"
+      content="Five cities. Air quality, housing, and commuting, with the source beside every figure."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:url"
+      content="https://final-portfolio-website.vercel.app/demos/urban-insight/index.html"
+    />
+    <meta
+      property="og:image"
+      content="https://final-portfolio-website.vercel.app/images/urban-insight.png"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link
+      rel="canonical"
+      href="https://final-portfolio-website.vercel.app/demos/urban-insight/index.html"
+    />
+    <link rel="icon" href="favicon.svg" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; font-src 'self'; connect-src 'self' https://air-quality-api.open-meteo.com; img-src 'self' data: https://tile.openstreetmap.org; object-src 'none'; base-uri 'self'; form-action 'self'"
+    />
+    <link
+      rel="preload"
+      href="fonts/source-sans-3-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="fonts/source-sans-3-latin-600-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- map-assets -->
+    <script type="module" src="js/main.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#explore">Skip to city explorer</a>
+    <header class="header">
+      <a class="brand" href="index.html"
+        >Urban Insight<span>City data, with context</span></a
+      >
+      <div class="header-actions">
+        <a href="https://final-portfolio-website.vercel.app/projects"
+          >← Portfolio</a
+        ><a
+          href="https://github.com/BBuster54/Brandon-Projects-/tree/main/urban-insight-platform"
+          >Source ↗</a
+        ><button id="theme">Theme: system</button>
       </div>
-      <button id="refreshData" class="btn btn-primary">Reset View</button>
-    </div>
-  </section>
-
-  <main class="main-content">
-    <div class="container" id="mainContent"></div>
-  </main>
-
-  <footer class="footer">
-    <div class="container">
-      <p>Built by Brandon Best &mdash; a static-data prototype exploring the intersection of environmental science and software engineering.</p>
-    </div>
-  </footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
-  <script src="script.js"></script>
-</body>
+    </header>
+    <main class="container" id="explore" tabindex="-1">
+      <div class="toolbar">
+        <div class="tabs" role="tablist" aria-label="City data views">
+          <button
+            id="tab-overview"
+            role="tab"
+            aria-controls="view-panel"
+            data-view="overview"
+            aria-selected="true"
+          >
+            Overview</button
+          ><button
+            id="tab-environment"
+            role="tab"
+            aria-controls="view-panel"
+            data-view="environment"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Environment</button
+          ><button
+            id="tab-transportation"
+            role="tab"
+            aria-controls="view-panel"
+            data-view="transportation"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Transportation</button
+          ><button
+            id="tab-housing"
+            role="tab"
+            aria-controls="view-panel"
+            data-view="housing"
+            aria-selected="false"
+            tabindex="-1"
+          >
+            Housing
+          </button>
+        </div>
+        <a href="#methods">Data and methods ↓</a>
+      </div>
+      <div class="controls">
+        <div>
+          <label for="city">Selected city</label
+          ><select id="city"></select>
+        </div>
+        <div>
+          <label for="metric">Map and ranking metric</label
+          ><select id="metric"></select>
+        </div>
+        <div>
+          <label for="category">AQI category filter</label
+          ><select id="category">
+            <option value="all">All cities</option>
+            <option value="good">Good</option>
+            <option value="moderate">Moderate</option>
+            <option value="sensitive">Unhealthy for sensitive groups</option>
+            <option value="unhealthy">Unhealthy</option>
+            <option value="very-unhealthy">Very unhealthy</option>
+            <option value="hazardous">Hazardous</option>
+            <option value="unavailable">No current reading</option>
+          </select>
+        </div>
+        <button id="reset">Reset filters</button
+        ><button id="refresh" disabled>Refresh air quality</button>
+      </div>
+      <p id="data-status" class="status" role="status">
+        Loading city metadata…
+      </p>
+      <div
+        class="explorer"
+        id="view-panel"
+        role="tabpanel"
+        aria-labelledby="tab-overview"
+        tabindex="0"
+      >
+        <section class="geography" aria-labelledby="map-title">
+          <div class="section-heading">
+            <h1 id="map-title">Five cities, one closer look.</h1>
+            <span id="visible-count">5 cities</span>
+          </div>
+          <p id="map-note" class="small">
+            Choose a city in the accessible directory below.
+          </p>
+          <div id="map" class="map-frame" aria-label="Map of included cities">
+            <p class="map-loading">City directory</p>
+          </div>
+          <div id="map-legend" class="legend"></div>
+          <p class="attribution" id="map-credit">
+            City-center coordinates are approximate geographic anchors.
+          </p>
+          <details class="city-directory" open>
+            <summary>City directory · accessible map alternative</summary>
+            <div
+              class="table-wrap"
+              tabindex="0"
+              role="region"
+              aria-label="Cities and air quality"
+            >
+              <table>
+                <caption class="sr-only">
+                  Cities with air quality categories and provenance
+                </caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Select city</th>
+                    <th scope="col">US AQI</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Source</th>
+                  </tr>
+                </thead>
+                <tbody id="city-table-body"></tbody>
+              </table>
+            </div>
+            <p id="city-empty" hidden>
+              No cities match this category. Reset filters to see all cities.
+            </p>
+          </details>
+        </section>
+        <aside class="story" aria-labelledby="city-title">
+          <div class="city-heading">
+            <h2 id="city-title">New York City</h2>
+            <p id="city-subtitle">NY · America/New_York</p>
+          </div>
+          <div class="aqi-headline">
+            <p class="small">Modeled air quality</p>
+            <p class="aqi-number" id="aqi-value">—</p>
+            <p id="aqi-status">No current reading</p>
+            <p id="aqi-time" class="small">Modeled air quality not available</p>
+            <div id="headline-source"></div>
+          </div>
+          <div
+            id="metric-list"
+            class="metric-list skeleton"
+            aria-busy="true"
+          ></div>
+        </aside>
+      </div>
+      <section class="section ranked" aria-labelledby="rank-title">
+        <div class="section-heading">
+          <h2 id="rank-title">US Air Quality Index across cities</h2>
+          <div>
+            <label for="sort">Sort values</label
+            ><select id="sort">
+              <option value="desc">Highest first</option>
+              <option value="asc">Lowest first</option>
+            </select>
+          </div>
+        </div>
+        <p class="small">
+          One metric and one unit per ranking. Sample values are excluded.
+          Larger values do not always mean better outcomes.
+        </p>
+        <div id="rank" class="rank" aria-live="off"></div>
+      </section>
+      <!-- phase-three -->
+      <section class="section" id="methods">
+        <h2>Data and methods</h2>
+        <details id="methods-disclosure">
+          <summary>Where the numbers come from</summary>
+          <div id="method-content"></div>
+        </details>
+        <details id="samples-disclosure">
+          <summary>Illustrative sample indicators</summary>
+          <div id="sample-content"></div>
+        </details>
+        <p class="provider-credit">
+          Modeled air-quality data:
+          <a href="https://open-meteo.com/en/docs/air-quality-api"
+            >Open-Meteo</a
+          >
+          and
+          <a href="https://ads.atmosphere.copernicus.eu/"
+            >Copernicus Atmosphere Monitoring Service (CAMS)</a
+          >,
+          <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
+          Official survey estimates:
+          <a href="https://www.census.gov/programs-surveys/acs"
+            >US Census Bureau, ACS</a
+          >, when loaded.
+        </p>
+      </section>
+      <p
+        id="announcement"
+        class="sr-only"
+        aria-live="polite"
+        aria-atomic="true"
+      ></p>
+      <noscript
+        ><p>
+          JavaScript is required for the interactive explorer. Source files and
+          data are available in the repository.
+        </p></noscript
+      >
+    </main>
+    <footer>
+      <p>Urban Insight · Brandon Best</p>
+      <a href="https://final-portfolio-website.vercel.app/projects"
+        >Back to portfolio</a
+      ><a
+        href="https://github.com/BBuster54/Brandon-Projects-/tree/main/urban-insight-platform"
+        >GitHub ↗</a
+      ><a href="mailto:b.best@student.fdu.edu">Contact</a>
+    </footer>
+  </body>
 </html>

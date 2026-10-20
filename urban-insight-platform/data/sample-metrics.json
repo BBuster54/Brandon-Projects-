@@ -1,0 +1,211 @@
+{
+  "version": "2.0.0",
+  "notice": "Illustrative legacy values. No verified source or observation date. Excluded from headlines and ranked charts. AQI is only an explicitly labeled last-resort fallback.",
+  "cities": [
+    {
+      "id": "nyc",
+      "metrics": {
+        "aqi": {
+          "value": 89,
+          "unit": "US AQI",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Hand-entered July 2024 prototype; not a measurement or current reading."
+        },
+        "congestion": {
+          "value": 78,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "recycling": {
+          "value": 45,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "evStations": {
+          "value": 485,
+          "unit": "illustrative stations",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Illustrative count; connector definition and measurement date unknown."
+        }
+      }
+    },
+    {
+      "id": "la",
+      "metrics": {
+        "aqi": {
+          "value": 124,
+          "unit": "US AQI",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Hand-entered July 2024 prototype; not a measurement or current reading."
+        },
+        "congestion": {
+          "value": 89,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "recycling": {
+          "value": 38,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "evStations": {
+          "value": 658,
+          "unit": "illustrative stations",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Illustrative count; connector definition and measurement date unknown."
+        }
+      }
+    },
+    {
+      "id": "chi",
+      "metrics": {
+        "aqi": {
+          "value": 76,
+          "unit": "US AQI",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Hand-entered July 2024 prototype; not a measurement or current reading."
+        },
+        "congestion": {
+          "value": 65,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "recycling": {
+          "value": 52,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "evStations": {
+          "value": 312,
+          "unit": "illustrative stations",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Illustrative count; connector definition and measurement date unknown."
+        }
+      }
+    },
+    {
+      "id": "hou",
+      "metrics": {
+        "aqi": {
+          "value": 98,
+          "unit": "US AQI",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Hand-entered July 2024 prototype; not a measurement or current reading."
+        },
+        "congestion": {
+          "value": 72,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "recycling": {
+          "value": 35,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "evStations": {
+          "value": 245,
+          "unit": "illustrative stations",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Illustrative count; connector definition and measurement date unknown."
+        }
+      }
+    },
+    {
+      "id": "phx",
+      "metrics": {
+        "aqi": {
+          "value": 105,
+          "unit": "US AQI",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Hand-entered July 2024 prototype; not a measurement or current reading."
+        },
+        "congestion": {
+          "value": 58,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "recycling": {
+          "value": 28,
+          "unit": "illustrative %",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "No verified measurement method or observation date."
+        },
+        "evStations": {
+          "value": 198,
+          "unit": "illustrative stations",
+          "source": "Illustrative legacy prototype",
+          "sourceUrl": null,
+          "asOf": null,
+          "kind": "sample",
+          "method": "Illustrative count; connector definition and measurement date unknown."
+        }
+      }
+    }
+  ]
+}
