@@ -81,7 +81,11 @@ export function selectFallback(current, cached, sample, now = Date.now()) {
     m.asOf &&
     Number.isFinite(Date.parse(m.asOf));
   if (valid(current))
-    return { ...current, stale: now - Date.parse(current.asOf) > 90 * 60000 };
+    return {
+      ...current,
+      stale:
+        Boolean(current.stale) || now - Date.parse(current.asOf) > 90 * 60000,
+    };
   if (valid(cached)) return { ...cached, stale: true };
   return sample ? { ...sample, stale: false } : null;
 }

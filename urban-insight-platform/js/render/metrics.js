@@ -38,7 +38,9 @@ export function renderCity(city, record, view) {
       node(
         "p",
         m.value === null
-          ? "Official data not yet loaded"
+          ? m.kind === "official"
+            ? "Official data not yet loaded"
+            : "Modeled data unavailable"
           : format(m.value) + (m.unit === "USD" ? " USD" : " " + m.unit),
         "metric-value",
       ),

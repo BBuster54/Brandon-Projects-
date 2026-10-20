@@ -20,7 +20,24 @@ let cities = [],
   samples = {},
   state = { ...defaultState };
 let mapController = null;
-// phase-two-imports
+import { createAirProvider } from "./data/providers/openMeteo.js";
+import { initMap } from "./render/map.js";
+let airProvider;
+let officialLoaded = false;
+async function refreshAir() {
+  const button = document.querySelector("#refresh");
+  button.disabled = true;
+  button.textContent = "Loading air quality…";
+  const result = await airProvider.load();
+  for (const city of cities)
+    Object.assign(records[city.id], result.records[city.id]);
+  document.querySelector("#data-status").textContent =
+    result.status + (officialLoaded ? "" : " Official data not yet loaded.");
+  render();
+  button.disabled = false;
+  button.textContent = "Refresh air quality";
+}
+document.querySelector("#refresh").addEventListener("click", refreshAir);
 // phase-three-imports
 const themeButton = document.querySelector("#theme");
 let theme = storageRead(safeStorage("localStorage"), "urban-theme", "system");
@@ -129,6 +146,7 @@ try {
     acsResponse.json(),
     sampleResponse.json(),
   ]);
+  officialLoaded = Object.keys(acs.cities ?? {}).length > 0;
   samples = Object.fromEntries(sampleData.cities.map((c) => [c.id, c.metrics]));
   state = parseState(location.search, cities);
   for (const c of cities) {
@@ -148,7 +166,9 @@ try {
   document.querySelector("#data-status").textContent =
     "No current modeled air-quality data. Official data not yet loaded. Illustrative values are confined to the sample disclosure.";
   render();
-  // phase-two-init
+  mapController = initMap(cities, selectCity);
+  airProvider = createAirProvider(cities, samples);
+  await refreshAir();
   // phase-three-init
 } catch {
   document.querySelector("#data-status").textContent =
