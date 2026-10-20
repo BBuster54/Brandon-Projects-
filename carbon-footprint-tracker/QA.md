@@ -4,6 +4,8 @@ Initial visual and Lighthouse checks ran October 16, 2026; final unit, Python, i
 
 ## Automated checks
 
+The complete Chromium interaction and keyboard journey also passed on the [Vercel preview](https://final-portfolio-website-2fvshva15-brandon-best.vercel.app/demos/carbon-footprint-tracker/index.html) on October 20, with no console or runtime errors. Its redirect and CSP/security response headers were checked over HTTP.
+
 - Vitest: 30 passing tests for known answers, conversion, validation, uncertainty, scenarios, sharing, history and export metadata.
 - pytest: 13 passing tests using the same JSON fixtures, including the weekly CLI argument and mutually exclusive commute options.
 - Chromium interaction checks: default and changed results, unit conversion without changing emissions, blank/high-value feedback, scope-safe scenarios, goals, monthly snapshots, deletion, URL restoration, CSV/JSON/PNG downloads, clipboard fallback, blocked storage and no console/runtime errors.
@@ -64,6 +66,6 @@ The static application ships no npm runtime dependencies. The requested Lighthou
 
 1. Open the portfolio feature-branch preview, using `/demos/carbon-footprint-tracker/index.html`.
 2. Review inputs, methodology, scenarios, history and exported reports.
-3. Review the three phase commits in each repository. The portfolio manifest pins the exact canonical revision.
+3. Review the three feature phase commits in each repository and the canonical follow-up that makes native-select keyboard testing portable across macOS and Linux. The portfolio manifest pins the exact canonical application revision; the test-only follow-up does not change its factors or served files.
 4. Merge the canonical project PR, then the portfolio PR after checks pass. The portfolio's existing Vercel integration will deploy production after that merge.
 5. For later model changes, commit in Brandon-Projects first, run `npm run sync`, then commit the generated portfolio copy. Never edit its factors independently.

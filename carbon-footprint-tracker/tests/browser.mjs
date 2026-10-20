@@ -184,11 +184,17 @@ for (let i = 0; i < 65; i++) {
       "Visible keyboard focus: " + JSON.stringify(active),
     );
   if (active.id === "transport") {
-    await page.keyboard.press("b");
-    await page.keyboard.press("Enter");
-    assert.equal(await page.locator("#transport").inputValue(), "bus");
-    await page.keyboard.press("c");
-    await page.keyboard.press("Enter");
+    // macOS uses a menu with explicit selection; Linux's closed select steps
+    // through options with arrows. Enter on Linux reopens that native popup.
+    if (process.platform === "darwin") {
+      await page.keyboard.press("b");
+      await page.keyboard.press("Enter");
+    } else {
+      await page.keyboard.press("ArrowDown");
+    }
+    await page.waitForFunction(
+      () => document.querySelector("#transport").value === "bus",
+    );
     keyboardSteps.push(
       "Native travel-mode select responds to keyboard selection.",
     );
