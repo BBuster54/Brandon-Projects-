@@ -1,9 +1,10 @@
 import { node, localTime } from "./shared.js";
+import { publicURL } from "../data/providers/census.js";
 export function provenance(metric, city) {
   const d = node("details", undefined, "provenance");
   const label =
     metric?.kind === "sample"
-      ? "Sample data"
+      ? "Source pending"
       : metric?.value === null
         ? metric?.kind === "official"
           ? "Not loaded"
@@ -20,7 +21,7 @@ export function provenance(metric, city) {
   box.append(node("p", metric?.source ?? "No source available"));
   if (metric?.sourceUrl) {
     try {
-      const u = new URL(metric.sourceUrl);
+      const u = new URL(publicURL(metric.sourceUrl));
       if (u.protocol === "https:") {
         const a = node("a", "Open source ↗");
         a.href = u.href;
@@ -121,7 +122,9 @@ export function renderMethods(cities, records, samples) {
     for (const [key, m] of Object.entries(samples[c.id] ?? {}))
       if (key !== "aqi")
         p.append(
-          node("span", key + " " + m.value + " " + m.unit + " · Sample data. "),
+          node("span", key + " " + m.value + " " + m.unit + " "),
+          node("span", "Source pending", "source-pending"),
+          node("span", " · "),
         );
     illustrative.append(p);
   }

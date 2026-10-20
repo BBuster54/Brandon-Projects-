@@ -137,7 +137,11 @@ export function createAirProvider(
         const byCity = {};
         for (const c of cities) {
           const merged = {
-            ...Object.fromEntries(Object.entries(entry?.byCity?.[c.id]?.metrics ?? {}).map(([k,m]) => [k, {...m, stale:true}])),
+            ...Object.fromEntries(
+              Object.entries(entry?.byCity?.[c.id]?.metrics ?? {}).map(
+                ([k, m]) => [k, { ...m, stale: true }],
+              ),
+            ),
             ...(current[c.id]?.metrics ?? {}),
           };
           byCity[c.id] = {

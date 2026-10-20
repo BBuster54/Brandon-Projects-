@@ -1,0 +1,38 @@
+name: Urban Insight quality
+on:
+  push:
+    paths: ['urban-insight-platform/**', '.github/workflows/urban-insight.yml']
+  pull_request:
+    paths: ['urban-insight-platform/**', '.github/workflows/urban-insight.yml']
+permissions:
+  contents: read
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: urban-insight-platform
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: urban-insight-platform/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test && npm run lint && npm run contrast
+      - name: Browser checks with recorded fixtures, no external API calls
+        run: |
+          python3 -m http.server 4180 > /tmp/urban-http.log 2>&1 &
+          for attempt in 1 2 3 4 5; do curl --fail --silent http://localhost:4180/ > /dev/null && break || sleep 1; done
+          npm run test:browser
+      - run: npm run lighthouse
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: urban-insight-qa
+          path: |
+            urban-insight-platform/artifacts
+            urban-insight-platform/.lighthouseci
+          include-hidden-files: true

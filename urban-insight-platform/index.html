@@ -49,7 +49,10 @@
     />
     <link rel="stylesheet" href="css/styles.css" />
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-    <link rel="stylesheet" href="vendor/gesture/leaflet-gesture-handling.min.css" />
+    <link
+      rel="stylesheet"
+      href="vendor/gesture/leaflet-gesture-handling.min.css"
+    />
     <script defer src="vendor/leaflet/leaflet.js"></script>
     <script defer src="vendor/gesture/leaflet-gesture-handling.min.js"></script>
     <script type="module" src="js/main.js"></script>
@@ -152,7 +155,8 @@
             <span id="visible-count">5 cities</span>
           </div>
           <p id="map-note" class="small">
-            Choose a city in the accessible directory below.
+            Two fingers to move; Ctrl/⌘ + scroll to zoom. Or select a city in
+            the directory.
           </p>
           <div id="map" class="map-frame" aria-label="Map of included cities">
             <p class="map-loading">City directory</p>
@@ -225,7 +229,39 @@
         </p>
         <div id="rank" class="rank" aria-live="off"></div>
       </section>
-      <!-- phase-three -->
+      <section class="section" aria-labelledby="compare-title">
+        <div class="section-heading">
+          <h2 id="compare-title">Compare two cities</h2>
+          <div>
+            <label for="compare">Second city</label
+            ><select id="compare"></select>
+          </div>
+        </div>
+        <p class="small">
+          Each row compares the same metric and unit. Survey estimates and
+          current model readings have different reference periods. No composite
+          score.
+        </p>
+        <div
+          id="comparison"
+          class="table-wrap"
+          tabindex="0"
+          role="region"
+          aria-label="City comparison"
+        ></div>
+      </section>
+      <section class="section" aria-labelledby="trend-title">
+        <h2 id="trend-title">Recent modeled AQI</h2>
+        <div id="trend"></div>
+      </section>
+      <section class="section export-actions" aria-label="Share and export">
+        <button id="export">Export visible cities · CSV</button
+        ><button id="share">Copy view URL</button
+        ><button id="print">Print report</button
+        ><label for="share-url" class="sr-only">Shareable view URL</label
+        ><input id="share-url" readonly hidden />
+        <p id="export-status" role="status"></p>
+      </section>
       <section class="section" id="methods">
         <h2>Data and methods</h2>
         <details id="methods-disclosure">

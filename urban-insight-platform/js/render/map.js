@@ -21,6 +21,8 @@ export function initMap(cities, onSelect) {
     touchZoom: false,
   });
   map.attributionControl.setPrefix(false);
+  const bounds = L.latLngBounds(cities.map((c) => [c.lat, c.lon])).pad(0.2);
+  map.on("resize", () => map.fitBounds(bounds, { animate: false }));
   const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
     attribution:
@@ -48,7 +50,7 @@ export function initMap(cities, onSelect) {
     }
   });
   document.querySelector("#map-note").textContent =
-    "Use two fingers to move the map; Ctrl/⌘ + scroll to zoom. The city directory provides the same selection without using the map.";
+    "Two fingers to move; Ctrl/⌘ + scroll to zoom. Or select a city in the directory.";
   const legend = document.querySelector("#map-legend");
   for (const cat of categories) {
     const item = node("span"),
@@ -62,19 +64,24 @@ export function initMap(cities, onSelect) {
   dot.className = "neutral";
   none.append(dot, node("span", "No current reading"));
   legend.append(none);
-  document
-    .querySelector("#map-credit")
-    .replaceChildren(
-      node("span", "© "),
-      Object.assign(node("a", "OpenStreetMap contributors"), {
-        href: "https://www.openstreetmap.org/copyright",
-      }),
-      node(
-        "span",
-        " · City centers are geographic anchors, not monitor locations.",
-      ),
-    );
+  document.querySelector("#map-credit").replaceChildren(
+    node("span", "© "),
+    Object.assign(node("a", "OpenStreetMap contributors"), {
+      href: "https://www.openstreetmap.org/copyright",
+    }),
+    node(
+      "span",
+      " · City centers are geographic anchors, not monitor locations.",
+    ),
+  );
   function update(visible, records, state) {
+    if (!hasFit) {
+      map.fitBounds(
+        L.latLngBounds(cities.map((c) => [c.lat, c.lon])).pad(0.2),
+        { animate: false },
+      );
+      hasFit = true;
+    }
     const focusedCity = document.activeElement?.dataset.cityId;
     for (const marker of shown.values()) map.removeLayer(marker);
     shown = new Map();
@@ -99,15 +106,16 @@ export function initMap(cities, onSelect) {
       const label =
         city.name +
         " · " +
-        (isSample
-          ? "No current reading"
-          : state.metric === "aqi"
-            ? (category?.label ?? "Unavailable") + (aqi.stale ? " · stale" : "")
-            : metricDefinitions[state.metric].label +
-              ": " +
-              (comparable(m)
-                ? format(m.value) + " " + m.unit
-                : "Official data not yet loaded"));
+        (state.metric === "aqi"
+          ? isSample
+            ? "No current reading"
+            : (category?.label ?? "Unavailable") + (aqi.stale ? " · stale" : "")
+          : metricDefinitions[state.metric].label +
+            ": " +
+            (comparable(m)
+              ? format(m.value) + " " + m.unit
+              : "Official data not yet loaded"));
+      content.querySelector(".marker-name").textContent = label;
       const marker = L.marker([city.lat, city.lon], {
         icon: L.divIcon({
           html: content,
@@ -135,7 +143,10 @@ export function initMap(cities, onSelect) {
       });
       shown.set(city.id, marker);
     }
-    if (focusedCity) (shown.get(focusedCity)?.getElement() ?? document.querySelector("#city")).focus({preventScroll:true});
+    if (focusedCity)
+      (
+        shown.get(focusedCity)?.getElement() ?? document.querySelector("#city")
+      ).focus({ preventScroll: true });
     if (!hasFit) {
       map.fitBounds(
         L.latLngBounds(cities.map((c) => [c.lat, c.lon])).pad(0.2),

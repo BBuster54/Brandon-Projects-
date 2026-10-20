@@ -50,6 +50,7 @@ export function renderCity(city, record, view) {
   }
 }
 export function renderCityTable(cities, records, select) {
+  const focused = document.activeElement?.dataset.directoryCity;
   const body = document.querySelector("#city-table-body");
   body.replaceChildren();
   for (const c of cities) {
@@ -58,6 +59,7 @@ export function renderCityTable(cities, records, select) {
       row = node("tr"),
       td = node("td"),
       button = node("button", c.name);
+    button.dataset.directoryCity = c.id;
     button.addEventListener("click", () => select(c.id));
     td.append(button);
     row.append(
@@ -76,4 +78,9 @@ export function renderCityTable(cities, records, select) {
     body.append(row);
   }
   document.querySelector("#city-empty").hidden = cities.length > 0;
+  if (focused)
+    (
+      body.querySelector(`[data-directory-city="${focused}"]`) ??
+      document.querySelector("#city")
+    ).focus({ preventScroll: true });
 }

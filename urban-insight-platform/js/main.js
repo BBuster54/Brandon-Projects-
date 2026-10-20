@@ -22,13 +22,16 @@ let cities = [],
 let mapController = null;
 import { createAirProvider } from "./data/providers/openMeteo.js";
 import { initMap } from "./render/map.js";
-let airProvider;
+import { loadACS } from "./data/providers/acs.js";
+let airProvider,
+  trends = {};
 let officialLoaded = false;
 async function refreshAir() {
   const button = document.querySelector("#refresh");
   button.disabled = true;
   button.textContent = "Loading air quality…";
   const result = await airProvider.load();
+  trends = result.trends;
   for (const city of cities)
     Object.assign(records[city.id], result.records[city.id]);
   document.querySelector("#data-status").textContent =
@@ -38,7 +41,39 @@ async function refreshAir() {
   button.textContent = "Refresh air quality";
 }
 document.querySelector("#refresh").addEventListener("click", refreshAir);
-// phase-three-imports
+import { renderCompare, renderTrend } from "./render/compare.js";
+import { downloadCSV } from "./export.js";
+document.querySelector("#compare").addEventListener("change", (e) => {
+  state.compare = e.target.value;
+  render();
+});
+document.querySelector("#export").addEventListener("click", () => {
+  downloadCSV(
+    filteredCities(cities, records, state.category),
+    records,
+    state.view,
+  );
+  document.querySelector("#export-status").textContent =
+    "CSV exported with sources and reference dates. Sample data excluded.";
+});
+document
+  .querySelector("#print")
+  .addEventListener("click", () => window.print());
+document.querySelector("#share").addEventListener("click", async () => {
+  const input = document.querySelector("#share-url");
+  input.value = location.href;
+  try {
+    await navigator.clipboard.writeText(location.href);
+    document.querySelector("#export-status").textContent =
+      "View URL copied. Recipients fetch their own current air quality; this is not a frozen snapshot.";
+  } catch {
+    input.hidden = false;
+    input.focus();
+    input.select();
+    document.querySelector("#export-status").textContent =
+      "Copy the selected URL to share this view.";
+  }
+});
 const themeButton = document.querySelector("#theme");
 let theme = storageRead(safeStorage("localStorage"), "urban-theme", "system");
 function applyTheme() {
@@ -91,7 +126,13 @@ function render() {
     ". " +
     visible.length +
     " cities match the filter.";
-  // phase-three-render
+  renderCompare(cities, records, state);
+  renderTrend(city, trends[city.id] ?? [], records[city.id].aqi);
+  if (
+    document.querySelector("#methods-disclosure").open ||
+    document.querySelector("#samples-disclosure").open
+  )
+    renderMethods(cities, records, samples);
 }
 for (const key of ["city", "metric", "category", "sort"])
   document.querySelector("#" + key).addEventListener("change", (e) => {
@@ -134,18 +175,14 @@ for (const id of ["methods-disclosure", "samples-disclosure"])
       renderMethods(cities, records, samples);
   });
 try {
-  const [meta, acsResponse, sampleResponse] = await Promise.all([
+  const [meta, acs, sampleResponse] = await Promise.all([
     loadCities(),
-    fetch("data/acs.json"),
-    fetch("data/sample-metrics.json"),
+    loadACS(),
+    fetch("data/sample-metrics.json", { signal: AbortSignal.timeout(8000) }),
   ]);
-  if (!acsResponse.ok || !sampleResponse.ok)
-    throw new Error("Data unavailable");
+  if (!sampleResponse.ok) throw new Error("Data unavailable");
   cities = meta;
-  const [acs, sampleData] = await Promise.all([
-    acsResponse.json(),
-    sampleResponse.json(),
-  ]);
+  const sampleData = await sampleResponse.json();
   officialLoaded = Object.keys(acs.cities ?? {}).length > 0;
   samples = Object.fromEntries(sampleData.cities.map((c) => [c.id, c.metrics]));
   state = parseState(location.search, cities);
@@ -153,6 +190,7 @@ try {
     document
       .querySelector("#city")
       .append(new Option(c.name + ", " + c.state, c.id));
+    document.querySelector("#compare").append(new Option(c.name, c.id));
     records[c.id] = {
       ...Object.fromEntries(
         Object.keys(metricDefinitions).map((k) => [k, missingMetric(k)]),
@@ -164,12 +202,14 @@ try {
   for (const [key, d] of Object.entries(metricDefinitions))
     document.querySelector("#metric").append(new Option(d.label, key));
   document.querySelector("#data-status").textContent =
-    "No current modeled air-quality data. Official data not yet loaded. Illustrative values are confined to the sample disclosure.";
+    "Loading current modeled air quality… " +
+    (officialLoaded
+      ? "Official ACS five-year snapshot loaded."
+      : "Official data not yet loaded.");
   render();
   mapController = initMap(cities, selectCity);
   airProvider = createAirProvider(cities, samples);
   await refreshAir();
-  // phase-three-init
 } catch {
   document.querySelector("#data-status").textContent =
     "City data could not load. Serve this static site over HTTP and reload. Data files remain available in the source repository.";

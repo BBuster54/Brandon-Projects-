@@ -12,18 +12,19 @@
     "sync": "node scripts/sync-portfolio.mjs",
     "check:sync": "node scripts/sync-portfolio.mjs --check",
     "contrast": "node scripts/check-contrast.mjs",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "node scripts/run-lighthouse.mjs"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.0",
     "@fontsource/source-sans-3": "^5.2.5",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.56.1",
+    "eslint": "^9.39.0",
+    "globals": "^16.5.0",
     "leaflet": "1.9.4",
     "leaflet-gesture-handling": "1.2.2",
-    "vitest": "^5.0.5",
+    "puppeteer-core": "^24.37.2",
     "vite": "^8.3.4",
-    "@playwright/test": "1.56.1",
-    "@lhci/cli": "0.15.1",
-    "eslint": "^9.39.0",
-    "@eslint/js": "^9.39.0",
-    "globals": "^16.5.0"
+    "vitest": "^5.0.5"
   }
 }
