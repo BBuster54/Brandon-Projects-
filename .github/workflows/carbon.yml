@@ -26,9 +26,18 @@ jobs:
       - run: pip install -r requirements.txt
       - run: npm test
       - run: python -m pytest tests/test_model.py -q
+      - run: npx playwright install --with-deps chromium
+      - run: |
+          python -m http.server 4174 &
+          npm run test:browser
       - run: npm run lighthouse
       - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: carbon-lighthouse
           path: carbon-footprint-tracker/.lighthouseci
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: carbon-browser-qa
+          path: carbon-footprint-tracker/artifacts

@@ -1,0 +1,32 @@
+{
+  "viewports": [
+    375,
+    768,
+    1440
+  ],
+  "consoleErrors": [],
+  "keyboardSteps": [
+    "Skip link moves focus to calculator.",
+    "Household input and Enter update results without navigation.",
+    "Native travel-mode select responds to keyboard selection.",
+    "Baseline button activates with Enter.",
+    "Snapshot saves with Enter.",
+    "Copy link is keyboard accessible.",
+    "All export controls reached in tab order.",
+    "Methodology opens with Enter."
+  ],
+  "checks": [
+    "known total",
+    "unit conversion",
+    "blank and high input",
+    "scenario delta",
+    "scope reset",
+    "goals",
+    "history and deletion",
+    "URL restore",
+    "CSV/JSON/PNG downloads",
+    "clipboard feedback",
+    "blocked storage",
+    "print PDF"
+  ]
+}
