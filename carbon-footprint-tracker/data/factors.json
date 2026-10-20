@@ -1,0 +1,141 @@
+{
+  "version": "2.0.0",
+  "lastReviewed": "2026-10-16",
+  "uncertainty": {
+    "high": 0.1,
+    "medium": 0.25,
+    "low": 0.5
+  },
+  "factors": [
+    {
+      "id": "car",
+      "label": "Car",
+      "value": 0.404,
+      "unit": "kg CO₂e / mile",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "bus",
+      "label": "Bus",
+      "value": 0.14,
+      "unit": "kg CO₂e / passenger mile",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "train",
+      "label": "Train",
+      "value": 0.09,
+      "unit": "kg CO₂e / passenger mile",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "bike",
+      "label": "Bike",
+      "value": 0,
+      "unit": "kg CO₂e / mile",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "walk",
+      "label": "Walk",
+      "value": 0,
+      "unit": "kg CO₂e / mile",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "electricity",
+      "label": "Electricity",
+      "value": 0.371,
+      "unit": "kg CO₂e / kWh",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "gas",
+      "label": "Home heating",
+      "value": 5.3,
+      "unit": "kg CO₂e / therm",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "flights",
+      "label": "Air travel",
+      "value": 0.255,
+      "unit": "kg CO₂e / passenger mile",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "waste",
+      "label": "Waste",
+      "value": 12,
+      "unit": "kg CO₂e / bag",
+      "source": "TODO: verify",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "meat",
+      "label": "Meat-heavy diet",
+      "value": 7,
+      "unit": "kg CO₂e / person / day",
+      "source": "illustrative, unsourced",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "average",
+      "label": "Mixed diet",
+      "value": 5,
+      "unit": "kg CO₂e / person / day",
+      "source": "illustrative, unsourced",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "vegetarian",
+      "label": "Vegetarian diet",
+      "value": 3.8,
+      "unit": "kg CO₂e / person / day",
+      "source": "illustrative, unsourced",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    },
+    {
+      "id": "vegan",
+      "label": "Vegan diet",
+      "value": 2.9,
+      "unit": "kg CO₂e / person / day",
+      "source": "illustrative, unsourced",
+      "sourceUrl": null,
+      "year": null,
+      "confidence": "low"
+    }
+  ]
+}

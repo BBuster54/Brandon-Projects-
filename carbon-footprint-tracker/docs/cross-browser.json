@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Firefox",
+    "version": "142.0.1",
+    "passed": true
+  },
+  {
+    "name": "WebKit",
+    "version": "26.0",
+    "passed": true
+  }
+]

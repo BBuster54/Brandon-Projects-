@@ -1,0 +1,110 @@
+[
+  {
+    "name": "600 car miles",
+    "input": {
+      "transport": "car",
+      "distance": 600,
+      "distanceUnit": "miles",
+      "period": "month",
+      "electricity": 0,
+      "gas": 0,
+      "flights": 0,
+      "waste": 0,
+      "diet": "average",
+      "household": 1,
+      "scope": "person"
+    },
+    "transport": 242.4,
+    "total": 392.4
+  },
+  {
+    "name": "train swap",
+    "input": {
+      "transport": "train",
+      "distance": 600,
+      "distanceUnit": "miles",
+      "period": "month",
+      "electricity": 0,
+      "gas": 0,
+      "flights": 0,
+      "waste": 0,
+      "diet": "average",
+      "household": 1,
+      "scope": "person"
+    },
+    "transport": 54,
+    "total": 204
+  },
+  {
+    "name": "weekly conversion",
+    "input": {
+      "transport": "car",
+      "distance": 150,
+      "distanceUnit": "miles",
+      "period": "week",
+      "electricity": 0,
+      "gas": 0,
+      "flights": 0,
+      "waste": 0,
+      "diet": "vegan",
+      "household": 1,
+      "scope": "person"
+    },
+    "transport": 262.6,
+    "total": 349.6
+  },
+  {
+    "name": "kilometer conversion",
+    "input": {
+      "transport": "car",
+      "distance": 965.6064,
+      "distanceUnit": "km",
+      "period": "month",
+      "electricity": 0,
+      "gas": 0,
+      "flights": 0,
+      "waste": 0,
+      "diet": "average",
+      "household": 1,
+      "scope": "person"
+    },
+    "transport": 242.4,
+    "total": 392.4
+  },
+  {
+    "name": "shared household",
+    "input": {
+      "transport": "car",
+      "distance": 600,
+      "distanceUnit": "miles",
+      "period": "month",
+      "electricity": 650,
+      "gas": 25,
+      "flights": 0,
+      "waste": 8,
+      "diet": "average",
+      "household": 2,
+      "scope": "person"
+    },
+    "transport": 242.4,
+    "total": 627.225
+  },
+  {
+    "name": "whole household",
+    "input": {
+      "transport": "car",
+      "distance": 600,
+      "distanceUnit": "miles",
+      "period": "month",
+      "electricity": 650,
+      "gas": 25,
+      "flights": 0,
+      "waste": 8,
+      "diet": "average",
+      "household": 2,
+      "scope": "household"
+    },
+    "transport": 484.8,
+    "total": 1254.45
+  }
+]
