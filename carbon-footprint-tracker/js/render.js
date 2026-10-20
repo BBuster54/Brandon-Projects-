@@ -1,5 +1,12 @@
-export const format = (n, digits = 1) =>
-  new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }).format(n);
+const formatters = new Map();
+export function format(n, digits = 1) {
+  if (!formatters.has(digits))
+    formatters.set(
+      digits,
+      new Intl.NumberFormat("en-US", { maximumFractionDigits: digits }),
+    );
+  return formatters.get(digits).format(n);
+}
 export const colors = {
   transport: "#a84328",
   electricity: "#3157c5",
@@ -79,27 +86,40 @@ export function renderResults(result, input, lever) {
 export function renderMethodology(data) {
   document.querySelector("#factor-version").textContent =
     "Model " + data.version + " · Last reviewed " + data.lastReviewed;
-  const body = document.querySelector("#factor-table");
-  for (const f of data.factors) {
-    const row = el("tr");
-    row.append(el("th", f.label), el("td", format(f.value, 3) + " " + f.unit));
-    const source = el("td");
-    if (f.sourceUrl) {
-      const a = el("a", f.source);
-      a.href = f.sourceUrl;
-      a.rel = "noreferrer";
-      a.target = "_blank";
-      source.append(a);
-    } else {
-      source.append(el("span", "Source pending", "badge"));
-      if (f.source === "illustrative, unsourced")
-        source.append(el("small", "Illustrative, unsourced"));
+  const details = document.querySelector("#methodology details");
+  let rendered = false;
+  function renderTable() {
+    if (!details.open || rendered) return;
+    rendered = true;
+    const body = document.querySelector("#factor-table");
+    const rows = document.createDocumentFragment();
+    for (const f of data.factors) {
+      const row = el("tr");
+      row.append(
+        el("th", f.label),
+        el("td", format(f.value, 3) + " " + f.unit),
+      );
+      const source = el("td");
+      if (f.sourceUrl) {
+        const a = el("a", f.source);
+        a.href = f.sourceUrl;
+        a.rel = "noreferrer";
+        a.target = "_blank";
+        source.append(a);
+      } else {
+        source.append(el("span", "Source pending", "badge"));
+        if (f.source === "illustrative, unsourced")
+          source.append(el("small", "Illustrative, unsourced"));
+      }
+      row.append(
+        source,
+        el("td", f.year ? String(f.year) : "Unverified"),
+        el("td", f.confidence),
+      );
+      rows.append(row);
     }
-    row.append(
-      source,
-      el("td", f.year ? String(f.year) : "Unverified"),
-      el("td", f.confidence),
-    );
-    body.append(row);
+    body.replaceChildren(rows);
   }
+  details.addEventListener("toggle", renderTable);
+  renderTable();
 }

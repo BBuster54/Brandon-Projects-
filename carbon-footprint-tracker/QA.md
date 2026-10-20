@@ -13,7 +13,7 @@ The complete Chromium interaction and keyboard journey also passed on the [Verce
 - Mobile Lighthouse: Performance 100, Accessibility 100, Best Practices 100, SEO 100; CLS approximately 0.002. These are measured local lab scores, not a guarantee of scores on every device/network.
 - Printed report: one A4 page in Chromium, with source status, model version, input summary, bounds and optional comparison totals.
 - Portfolio: lint and production build, plus an exact canonical factor revision/version/SHA-256 check.
-- GitHub Actions: JavaScript, Python, browser interaction tests and a Lighthouse CI minimum of 95 in all four categories. Portfolio CI independently verifies its copied factors.
+- GitHub Actions: JavaScript, Python, browser interaction tests and a Lighthouse CI minimum median of 95 across three runs in all four categories. Portfolio CI independently verifies its copied factors.
 
 ## Screenshots
 
@@ -66,6 +66,6 @@ The static application ships no npm runtime dependencies. The requested Lighthou
 
 1. Open the portfolio feature-branch preview, using `/demos/carbon-footprint-tracker/index.html`.
 2. Review inputs, methodology, scenarios, history and exported reports.
-3. Review the three feature phase commits in each repository and the canonical follow-up that makes native-select keyboard testing portable across macOS and Linux. The portfolio manifest pins the exact canonical application revision; the test-only follow-up does not change its factors or served files.
+3. Review the three feature phases and their verification follow-ups: portable native-select keyboard tests, saved Lighthouse diagnostics, and startup work reduced by cached number formatters and on-demand methodology rendering. The portfolio manifest pins the exact canonical application revision.
 4. Merge the canonical project PR, then the portfolio PR after checks pass. The portfolio's existing Vercel integration will deploy production after that merge.
 5. For later model changes, commit in Brandon-Projects first, run `npm run sync`, then commit the generated portfolio copy. Never edit its factors independently.

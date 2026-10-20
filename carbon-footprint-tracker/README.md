@@ -71,7 +71,7 @@ npm run test:browser
 node tests/cross-browser.mjs
 ```
 
-Vitest and pytest use shared known-answer fixtures, including 600 car miles = 242.4 kg and a train swap saving 188.4 kg, weekly conversion, kilometers and household allocation. GitHub Actions runs both suites and mobile Lighthouse CI with 95-point minimums for performance, accessibility, best practices and SEO. Lighthouse uses a local HTTP server; preview deployments enforce security response headers.
+Vitest and pytest use shared known-answer fixtures, including 600 car miles = 242.4 kg and a train swap saving 188.4 kg, weekly conversion, kilometers and household allocation. GitHub Actions runs both suites and mobile Lighthouse CI with a three-run median minimum of 95 for performance, accessibility, best practices and SEO. Lighthouse uses a local HTTP server; preview deployments enforce security response headers. Number formatters are reused, and the factor table is built when its disclosure opens to keep startup work small.
 
 ## Deployment
 

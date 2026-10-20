@@ -4,10 +4,11 @@ module.exports = {
       startServerCommand: "python3 -u -m http.server 4173",
       startServerReadyPattern: "Serving HTTP",
       url: ["http://localhost:4173/"],
-      numberOfRuns: 1,
+      numberOfRuns: 3,
       settings: { chromeFlags: "--no-sandbox" },
     },
     assert: {
+      aggregationMethod: "median",
       assertions: {
         "categories:performance": ["error", { minScore: 0.95 }],
         "categories:accessibility": ["error", { minScore: 0.95 }],

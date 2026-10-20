@@ -226,6 +226,9 @@ for (let i = 0; i < 65; i++) {
   if (active.text === "Explore the model and emission factors") {
     await page.keyboard.press("Enter");
     assert.equal(await page.locator("details").getAttribute("open"), "");
+    await page.waitForFunction(
+      () => document.querySelector("#factor-table").children.length === 13,
+    );
     keyboardSteps.push("Methodology opens with Enter.");
     break;
   }
