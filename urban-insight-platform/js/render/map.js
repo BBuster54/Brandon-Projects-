@@ -1,6 +1,7 @@
 import { node, format } from "./shared.js";
 import { categories, markerCategory } from "../aqi.js";
 import { comparable, metricDefinitions } from "../data/normalize.js";
+import { applyEPA } from "./epa-style.js";
 export function initMap(cities, onSelect) {
   const L = globalThis.L;
   if (!L) return { update() {} };
@@ -55,7 +56,7 @@ export function initMap(cities, onSelect) {
   for (const cat of categories) {
     const item = node("span"),
       dot = node("i");
-    dot.style.backgroundColor = cat.color;
+    applyEPA(dot, cat.color);
     item.append(dot, node("span", cat.label));
     legend.append(item);
   }
@@ -100,7 +101,7 @@ export function initMap(cities, onSelect) {
       );
       const circle = node("span", undefined, "marker-dot");
       if (!isSample && state.metric === "aqi")
-        circle.style.backgroundColor = category?.color ?? "#fff";
+        applyEPA(circle, category?.color ?? "#fff7e9");
       else if (!isSample) circle.style.backgroundColor = "var(--accent)";
       content.append(circle, node("span", city.name, "marker-name"));
       const label =
@@ -120,7 +121,7 @@ export function initMap(cities, onSelect) {
         icon: L.divIcon({
           html: content,
           className: "city-marker-wrapper",
-          iconSize: [120, 44],
+          iconSize: [44, 44],
           iconAnchor: [16, 22],
         }),
         keyboard: true,
@@ -147,13 +148,6 @@ export function initMap(cities, onSelect) {
       (
         shown.get(focusedCity)?.getElement() ?? document.querySelector("#city")
       ).focus({ preventScroll: true });
-    if (!hasFit) {
-      map.fitBounds(
-        L.latLngBounds(cities.map((c) => [c.lat, c.lon])).pad(0.2),
-        { animate: false },
-      );
-      hasFit = true;
-    }
   }
   return { update, map };
 }

@@ -12,10 +12,13 @@
     "sync": "node scripts/sync-portfolio.mjs",
     "check:sync": "node scripts/sync-portfolio.mjs --check",
     "contrast": "node scripts/check-contrast.mjs",
+    "check:presentation": "node scripts/check-presentation.mjs",
     "lighthouse": "node scripts/run-lighthouse.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.0",
+    "@fontsource/fraunces": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@fontsource/source-sans-3": "^5.2.5",
     "@lhci/cli": "0.15.1",
     "@playwright/test": "1.56.1",

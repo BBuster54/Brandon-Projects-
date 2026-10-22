@@ -15,6 +15,13 @@ import {
 import { renderCity, renderCityTable } from "./render/metrics.js";
 import { renderRank } from "./render/charts.js";
 import { renderMethods } from "./render/provenance.js";
+// Presentation only: filters start collapsed on phones and dock open on larger screens.
+const phoneLayout = matchMedia("(max-width: 600px)");
+const dockFilters = () => {
+  document.querySelector("#filter-disclosure").open = !phoneLayout.matches;
+};
+dockFilters();
+phoneLayout.addEventListener("change", dockFilters);
 let cities = [],
   records = {},
   samples = {},

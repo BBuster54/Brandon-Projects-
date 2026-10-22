@@ -42,7 +42,7 @@
     />
     <link
       rel="preload"
-      href="fonts/source-sans-3-latin-600-normal.woff2"
+      href="fonts/fraunces-latin-600-normal.woff2"
       as="font"
       type="font/woff2"
       crossorigin
@@ -61,7 +61,7 @@
     <a class="skip" href="#explore">Skip to city explorer</a>
     <header class="header">
       <a class="brand" href="index.html"
-        >Urban Insight<span>City data, with context</span></a
+        >Urban Insight<span>An atlas of five US cities</span></a
       >
       <div class="header-actions">
         <a href="https://final-portfolio-website.vercel.app/projects"
@@ -114,31 +114,6 @@
         </div>
         <a href="#methods">Data and methods ↓</a>
       </div>
-      <div class="controls">
-        <div>
-          <label for="city">Selected city</label
-          ><select id="city"></select>
-        </div>
-        <div>
-          <label for="metric">Map and ranking metric</label
-          ><select id="metric"></select>
-        </div>
-        <div>
-          <label for="category">AQI category filter</label
-          ><select id="category">
-            <option value="all">All cities</option>
-            <option value="good">Good</option>
-            <option value="moderate">Moderate</option>
-            <option value="sensitive">Unhealthy for sensitive groups</option>
-            <option value="unhealthy">Unhealthy</option>
-            <option value="very-unhealthy">Very unhealthy</option>
-            <option value="hazardous">Hazardous</option>
-            <option value="unavailable">No current reading</option>
-          </select>
-        </div>
-        <button id="reset">Reset filters</button
-        ><button id="refresh" disabled>Refresh air quality</button>
-      </div>
       <p id="data-status" class="status" role="status">
         Loading city metadata…
       </p>
@@ -151,15 +126,47 @@
       >
         <section class="geography" aria-labelledby="map-title">
           <div class="section-heading">
-            <h1 id="map-title">Five cities, one closer look.</h1>
+            <h1 id="map-title">Explore the city atlas</h1>
             <span id="visible-count">5 cities</span>
           </div>
           <p id="map-note" class="small">
             Two fingers to move; Ctrl/⌘ + scroll to zoom. Or select a city in
             the directory.
           </p>
-          <div id="map" class="map-frame" aria-label="Map of included cities">
-            <p class="map-loading">City directory</p>
+          <div class="map-stage">
+            <details id="filter-disclosure" class="filter-dock" open>
+              <summary>City and map filters</summary>
+              <div class="controls">
+                <div>
+                  <label for="city">Selected city</label
+                  ><select id="city"></select>
+                </div>
+                <div>
+                  <label for="metric">Map and chart metric</label
+                  ><select id="metric"></select>
+                </div>
+                <div>
+                  <label for="category">AQI category filter</label
+                  ><select id="category">
+                    <option value="all">All cities</option>
+                    <option value="good">Good</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="sensitive">
+                      Unhealthy for sensitive groups
+                    </option>
+                    <option value="unhealthy">Unhealthy</option>
+                    <option value="very-unhealthy">Very unhealthy</option>
+                    <option value="hazardous">Hazardous</option>
+                    <option value="unavailable">No current reading</option>
+                  </select>
+                </div>
+                <button id="reset">Reset filters</button
+                ><button id="refresh" disabled>Refresh air quality</button>
+              </div>
+            </details>
+            <div id="map" class="map-frame" aria-label="Map of included cities">
+              <p class="map-loading">City directory</p>
+            </div>
           </div>
           <div id="map-legend" class="legend"></div>
           <p class="attribution" id="map-credit">
@@ -263,7 +270,7 @@
         <p id="export-status" role="status"></p>
       </section>
       <section class="section" id="methods">
-        <h2>Data and methods</h2>
+        <h2>Sources and methods</h2>
         <details id="methods-disclosure">
           <summary>Where the numbers come from</summary>
           <div id="method-content"></div>
@@ -287,6 +294,22 @@
             >US Census Bureau, ACS</a
           >, when loaded.
         </p>
+      </section>
+      <section
+        id="why-built"
+        data-placeholder
+        hidden
+        aria-labelledby="why-built-title"
+      >
+        <h2 id="why-built-title">Why I built this</h2>
+      </section>
+      <section
+        id="surprised"
+        data-placeholder
+        hidden
+        aria-labelledby="surprised-title"
+      >
+        <h2 id="surprised-title">What surprised me</h2>
       </section>
       <p
         id="announcement"
