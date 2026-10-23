@@ -23,7 +23,13 @@ Visitors need no build step. Node dependencies are development tools and sources
 
 ## Design and accessibility
 
-Source Sans 3 is self-hosted for compact, readable civic data and tabular numerals. Cool paper, ink and graphite leave EPA colors for AQI only. No invented red/green judgment for housing or infrastructure. Contrast is calculated in `scripts/check-contrast.mjs`; control borders exceed 3:1 and text exceeds 4.5:1 in both themes. Pale rule borders are decorative only.
+The Urban Atlas identity pairs Fraunces headings with JetBrains Mono figures/timestamps and Source Sans 3 body copy: an editorial atlas voice with instrument-like data. Newsreader was considered as a quieter serif alternative; Fraunces was chosen for its sturdier, more distinctive display shapes. Mono is not used for section labels or explanatory copy. Four self-hosted Latin WOFF2 subsets total **70,628 bytes**, all using `font-display: swap`; their licenses are in `fonts/`.
+
+Parchment, vellum and umber replace the blue-gray chrome. The map occupies 65vh on desktop, with docked filters and a city panel. Only one map label is shown at a time, placed in screen space to avoid other markers and controls; no city coordinates move. Theme filters apply only to the tile pane, never to attribution, markers or controls. EPA colors remain reserved for AQI. Double keylines separate fills from their backgrounds; all intended text, boundary and interaction pairings are computed in the [full contrast audit](docs/atlas-contrast.md), including raw-fill diagnostics and filtered-tile bounds.
+
+The AQI chart uses a proportional 0–500 segmented EPA ramp. Annotation labels are 200px wide with 12px separation and up to three 90px leader-line lanes. Below 600px, or if a cluster needs more than three lanes, exact values and categories use a stacked list instead. The cluster 51/57/64/83/95 and identical-value cases are unit-tested. Other selected metrics keep a neutral single-unit chart, never an EPA scale. Trend charts show a labeled y-axis, minimum/maximum values, local start/end timestamps and a visible modeled note; exact values remain in the text table.
+
+Phone directory/comparison tables become stacked records with visible source fields. Provenance rules and popover contents are unchanged; headers carry one source badge and rows use compact 44px info targets. Reflection sections remain empty and hidden until Brandon supplies text. CI and the portfolio prebuild check reject exposed placeholders or fonts over 150 KB, and browser checks assert actual computed visibility. See the [Atlas review](ATLAS-REVIEW.md) for before/after screenshots, keyboard and performance results.
 
 Native selectors, arrow-key tabs, visible focus, a skip link, live announcements and text values accompany all graphics. A city table duplicates map selection. Unsupported illustrative congestion, recycling and EV counts are confined to a collapsed disclosure. Invented affordability, energy, water and noise composites are removed.
 
@@ -44,6 +50,8 @@ URLs retain view, selected city, metric, comparison city, category and sort. Sha
 ### Checks
 
 `npm run test:browser` requires the static server on port 4180 and `npx playwright install chromium`. It uses recorded responses and intercepted tiles, never live API requests. `npm run lighthouse` starts its own server, intercepts provider/tile requests and checks three-run mobile medians ≥95 for performance, accessibility, best practices and SEO. GitHub Actions runs unit tests, lint, contrast, browser and Lighthouse checks; screenshots are uploaded as artifacts. Test fixtures are not production data feeds. See `QA.md` for results and `TODO.md` for unresolved legacy-source verification.
+
+The Atlas pass adds `npm run check:presentation`, `npm run test:presentation` (both themes at three widths, contrast probes, responsive tables, hidden-placeholder negative test and resize focus retention) and `npm run test:keyboard` (keyboard-only operation at all three widths). Run `node scripts/check-contrast.mjs --write` to regenerate the full contrast table and `node scripts/capture-design.mjs after` to reproduce the visual review images. The captured before/after comparisons use the same unmodified recorded air response; its older timestamp is honestly marked stale.
 
 CAMS global is a coarse model (~45 km), not a monitor network. City-center estimates can differ from local readings; [AirNow](https://www.airnow.gov/) is linked for official readings. Timestamps are formatted in each city's IANA time zone, including its zone abbreviation.
 

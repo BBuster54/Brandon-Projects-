@@ -1251,7 +1251,8 @@ footer p {
 }
 @media print {
   :root,
-  :root[data-theme] {
+  :root[data-theme],
+  :root:not([data-theme="light"]) {
     color-scheme: light;
     --paper: #ffffff;
     --surface: #ffffff;

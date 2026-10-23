@@ -199,6 +199,19 @@ for (const width of [375, 768, 1440])
           .evaluate((el) => Boolean(el.closest("#rank .provenance[open]"))),
       );
     }
+    if (width === 1440 && theme === "dark") {
+      await page.evaluate(() => delete document.documentElement.dataset.theme);
+      await page.emulateMedia({ media: "print", colorScheme: "dark" });
+      const print = await page.locator("body").evaluate((el) => {
+        const s = getComputedStyle(el);
+        return { fg: s.color, bg: s.backgroundColor };
+      });
+      assert.ok(
+        contrast(hex(print.fg), hex(print.bg)) >= 5.7,
+        "System-dark print must remain dark ink on paper",
+      );
+      await hidden(page);
+    }
     results.push({
       width,
       theme,
