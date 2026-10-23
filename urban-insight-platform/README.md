@@ -21,6 +21,8 @@ npm run contrast
 
 Visitors need no build step. Node dependencies are development tools and sources of self-hosted, version-pinned assets.
 
+After changing presentation source modules or CSS, run `npm run build:presentation` before serving/testing. Two committed, deterministic static assets (`js/atlas.js` and `css/atlas.css`) consolidate the unchanged modules/styles to remove a deep import/request waterfall. esbuild does not read `.env`; no credentials or fetched data are injected. Source files stay readable and are tested directly. `npm run check:presentation` rejects stale bundles, and sync regenerates them before copying. Visitors still need no build tools or framework runtime. See the [esbuild API](https://esbuild.github.io/api/) for the packaging mechanism.
+
 ## Design and accessibility
 
 The Urban Atlas identity pairs Fraunces headings with JetBrains Mono figures/timestamps and Source Sans 3 body copy: an editorial atlas voice with instrument-like data. Newsreader was considered as a quieter serif alternative; Fraunces was chosen for its sturdier, more distinctive display shapes. Mono is not used for section labels or explanatory copy. Four self-hosted Latin WOFF2 subsets total **70,628 bytes**, all using `font-display: swap`; their licenses are in `fonts/`.

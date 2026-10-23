@@ -16,6 +16,14 @@ const root = resolve(dirname(fileURLToPath(import.meta.url)), ".."),
   ),
   check = process.argv.includes("--check");
 const files = ["index.html", "favicon.svg"];
+execFileSync(
+  process.execPath,
+  [
+    resolve(root, "scripts/build-presentation.mjs"),
+    ...(check ? ["--check"] : []),
+  ],
+  { cwd: root, stdio: "inherit" },
+);
 async function walk(dir) {
   for (const e of await readdir(join(root, dir), { withFileTypes: true })) {
     const p = join(dir, e.name);

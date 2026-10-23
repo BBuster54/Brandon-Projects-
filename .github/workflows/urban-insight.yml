@@ -30,6 +30,9 @@ jobs:
           npm run test:presentation
           npm run test:keyboard
       - run: npm run lighthouse
+      - name: Lighthouse metrics and diagnostics
+        if: always()
+        run: node scripts/lighthouse-diagnostics.mjs
       - uses: actions/upload-artifact@v4
         if: always()
         with:

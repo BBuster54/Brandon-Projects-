@@ -14,6 +14,7 @@ export default [
   {
     ignores: [
       "vendor/**",
+      "js/atlas.js",
       "node_modules/**",
       "artifacts/**",
       ".lighthouseci/**",
