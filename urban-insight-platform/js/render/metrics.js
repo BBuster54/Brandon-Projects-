@@ -1,4 +1,4 @@
-import { node, format, localTime } from "./shared.js";
+import { node, format, localTime, measurement } from "./shared.js";
 import { provenance } from "./provenance.js";
 import { metricDefinitions, missingMetric } from "../data/normalize.js";
 import { markerCategory } from "../aqi.js";
@@ -33,18 +33,21 @@ export function renderCity(city, record, view) {
     const m = record[key] ?? missingMetric(key),
       d = metricDefinitions[key],
       row = node("article", undefined, "metric-row");
+    const value = node("p", undefined, "metric-value");
+    value.append(
+      m.value === null
+        ? node(
+            "span",
+            m.kind === "official"
+              ? "Official data not yet loaded"
+              : "Modeled data unavailable",
+          )
+        : measurement(m.value, m.unit),
+    );
     row.append(
       node("h3", d.label),
-      node(
-        "p",
-        m.value === null
-          ? m.kind === "official"
-            ? "Official data not yet loaded"
-            : "Modeled data unavailable"
-          : format(m.value) + (m.unit === "USD" ? " USD" : " " + m.unit),
-        "metric-value",
-      ),
-      provenance(m, city),
+      value,
+      provenance(m, city, { compact: true }),
     );
     list.append(row);
   }
@@ -64,7 +67,7 @@ export function renderCityTable(cities, records, select) {
     td.append(button);
     row.append(
       td,
-      node("td", m?.kind === "live" ? format(m.value, 0) : "—"),
+      node("td", m?.kind === "live" ? format(m.value, 0) : "—", "numeric"),
       node(
         "td",
         category
@@ -73,8 +76,11 @@ export function renderCityTable(cities, records, select) {
       ),
     );
     const provenanceCell = node("td");
-    provenanceCell.append(provenance(m, c));
+    provenanceCell.append(provenance(m, c, { compact: true }));
     row.append(provenanceCell);
+    [...row.children].forEach((cell, index) => {
+      cell.dataset.label = ["City", "US AQI", "Category", "Source"][index];
+    });
     body.append(row);
   }
   document.querySelector("#city-empty").hidden = cities.length > 0;

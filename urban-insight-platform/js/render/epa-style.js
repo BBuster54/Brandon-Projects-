@@ -9,6 +9,6 @@ export function applyEPA(element, fill) {
   element.style.setProperty("--epa-edge", fillEdge(fill));
 }
 export const tileRange = {
-  light: { min: "#636363", max: "#cecece" },
-  dark: { min: "#282828", max: "#4b4b4b" },
+  light: { min: "#606060", max: "#d0d0d0" },
+  dark: { min: "#262626", max: "#4d4d4d" },
 };

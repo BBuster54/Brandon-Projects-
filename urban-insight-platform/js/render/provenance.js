@@ -1,7 +1,11 @@
 import { node, localTime } from "./shared.js";
 import { publicURL } from "../data/providers/census.js";
-export function provenance(metric, city) {
-  const d = node("details", undefined, "provenance");
+export function provenance(metric, city, { compact = false } = {}) {
+  const d = node(
+    "details",
+    undefined,
+    "provenance" + (compact ? " inline" : ""),
+  );
   const label =
     metric?.kind === "sample"
       ? "Source pending"
@@ -16,7 +20,13 @@ export function provenance(metric, city) {
           : metric?.value !== null && metric?.vintage
             ? "Official " + metric.vintage
             : "Not loaded";
-  d.append(node("summary", label));
+  const summary = node("summary", compact ? "ⓘ" : label);
+  if (compact)
+    summary.setAttribute(
+      "aria-label",
+      "Source: " + label + ". " + (metric?.source ?? "No source available"),
+    );
+  d.append(summary);
   const box = node("div");
   box.append(node("p", metric?.source ?? "No source available"));
   if (metric?.sourceUrl) {

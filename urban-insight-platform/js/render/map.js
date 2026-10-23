@@ -2,6 +2,7 @@ import { node, format } from "./shared.js";
 import { categories, markerCategory } from "../aqi.js";
 import { comparable, metricDefinitions } from "../data/normalize.js";
 import { applyEPA } from "./epa-style.js";
+import { placeMapLabel } from "./map-label-layout.js";
 export function initMap(cities, onSelect) {
   const L = globalThis.L;
   if (!L) return { update() {} };
@@ -22,8 +23,13 @@ export function initMap(cities, onSelect) {
     touchZoom: false,
   });
   map.attributionControl.setPrefix(false);
-  const bounds = L.latLngBounds(cities.map((c) => [c.lat, c.lon])).pad(0.2);
-  map.on("resize", () => map.fitBounds(bounds, { animate: false }));
+  const bounds = L.latLngBounds(cities.map((c) => [c.lat, c.lon]));
+  const fit = () =>
+    map.fitBounds(bounds.pad(root.clientWidth < 600 ? 0 : 0.14), {
+      animate: false,
+      padding: [24, 24],
+    });
+  map.on("resize", fit);
   const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
     attribution:
@@ -36,6 +42,53 @@ export function initMap(cities, onSelect) {
   let shown = new Map(),
     hasFit = false,
     tileWarning = false;
+  function positionLabels() {
+    const anchors = cities.map((c) => ({
+      id: c.id,
+      ...map.latLngToContainerPoint([c.lat, c.lon]),
+    }));
+    const r = root.getBoundingClientRect(),
+      dock = document
+        .querySelector("#filter-disclosure")
+        .getBoundingClientRect();
+    const blocked =
+      dock.bottom > r.top
+        ? [
+            {
+              x: dock.left - r.left,
+              y: dock.top - r.top,
+              width: dock.width,
+              height: dock.height,
+            },
+          ]
+        : [];
+    for (const [id, marker] of shown) {
+      const pin = anchors.find((p) => p.id === id),
+        label = marker.getElement()?.querySelector(".marker-name");
+      if (!label) continue;
+      label.hidden =
+        pin.x < 0 ||
+        pin.x > root.clientWidth ||
+        pin.y < 0 ||
+        pin.y > root.clientHeight;
+      const box = placeMapLabel(
+        pin,
+        anchors.filter((p) => p.id !== id),
+        root.clientWidth,
+        root.clientHeight,
+        {
+          blocked,
+          labelHeight: Math.max(
+            52,
+            Math.ceil(label.textContent.length / 24) * 20 + 12,
+          ),
+        },
+      );
+      label.style.setProperty("--label-left", box.x - pin.x + 22 + "px");
+      label.style.setProperty("--label-top", box.y - pin.y + 22 + "px");
+    }
+  }
+  map.on("moveend zoomend resize", positionLabels);
   tiles.on("tileerror", () => {
     if (!tileWarning) {
       tileWarning = true;
@@ -77,10 +130,7 @@ export function initMap(cities, onSelect) {
   );
   function update(visible, records, state) {
     if (!hasFit) {
-      map.fitBounds(
-        L.latLngBounds(cities.map((c) => [c.lat, c.lon])).pad(0.2),
-        { animate: false },
-      );
+      fit();
       hasFit = true;
     }
     const focusedCity = document.activeElement?.dataset.cityId;
@@ -122,7 +172,7 @@ export function initMap(cities, onSelect) {
           html: content,
           className: "city-marker-wrapper",
           iconSize: [44, 44],
-          iconAnchor: [16, 22],
+          iconAnchor: [22, 22],
         }),
         keyboard: true,
         title: label,
@@ -148,6 +198,7 @@ export function initMap(cities, onSelect) {
       (
         shown.get(focusedCity)?.getElement() ?? document.querySelector("#city")
       ).focus({ preventScroll: true });
+    positionLabels();
   }
   return { update, map };
 }

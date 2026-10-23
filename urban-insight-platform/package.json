@@ -8,6 +8,8 @@
     "lint": "eslint js scripts tests",
     "serve": "python3 -m http.server 4180",
     "test:browser": "node tests/browser.mjs",
+    "test:presentation": "node tests/presentation.mjs",
+    "test:keyboard": "node tests/keyboard-atlas.mjs",
     "fetch:acs": "node scripts/fetch-acs.mjs",
     "sync": "node scripts/sync-portfolio.mjs",
     "check:sync": "node scripts/sync-portfolio.mjs --check",

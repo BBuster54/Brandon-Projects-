@@ -2,7 +2,7 @@
 
 Computed WCAG sRGB relative-luminance ratios. Raw EPA fills are diagnostic, not standalone accessible boundaries. A 2px inner black/white keyline contrasts against the fill; a separate outer black (light) / white (dark) boundary contrasts against the surface or filtered tile. Category names remain text. Focus rings use a surface gap. Disabled filled buttons keep their contrast and use a dashed boundary, not opacity.
 
-Light tile filter: grayscale(1) sepia(.3) brightness(.8) contrast(.4) brightness(1.3), all channels bounded by 0.39–0.806 (rounded #636363–#CECECE). Dark filter: grayscale(1) sepia(.25) invert(1) contrast(.3) brightness(.45), bounded by 0.1575–0.2925 (#282828–#4B4B4B). The filter applies only to .leaflet-tile-pane; UI/attribution/markers are not filtered. Bounds are conservative channel extrema, independent of original tile colors.
+Light tile filter: grayscale(1) sepia(.3) brightness(.8) contrast(.4) brightness(1.3), ideal channel range 0.39–0.806. Dark filter: grayscale(1) sepia(.25) invert(1) contrast(.3) brightness(.45), ideal channel range 0.1575–0.2925. We pad the 8-bit extrema by three code values for rounding: #606060–#D0D0D0 light, #262626–#4D4D4D dark. The filter applies only to .leaflet-tile-pane; UI/attribution/markers are not filtered. The grayscale-first filter makes the extrema independent of original tile colors. Browser canvas probes of the same filters are also tested: light black input produces #626262 (boundary 3.44:1), dark black input #4A4A4A (8.86:1).
 
 | Theme | Pairing | Foreground | Background | Ratio | Minimum | Note |
 |---|---|---|---|---:|---:|---|
@@ -36,49 +36,52 @@ Light tile filter: grayscale(1) sepia(.3) brightness(.8) contrast(.4) brightness
 | light | Filled button focus: boundary / surface | #4B4232 | #FFF7E9 | 9.29 | 3 |  |
 | light | Focus ring / surface | #2B251C | #FFF7E9 | 14.26 | 3 |  |
 | light | Focus ring / page | #2B251C | #E5D7BB | 10.67 | 3 |  |
+| light | Attribution text / unfiltered vellum | #2b251c | #fff7e9 | 14.26 | 5.7 |  |
+| light | Map controls/focus boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 |  |
+| light | Map controls/focus boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 |  |
 | light | Inverted card text / fill | #E5D7BB | #2B251C | 10.67 | 5.7 |  |
 | light | Good: raw fill / paper | #00e400 | #E5D7BB | 1.22 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Good: raw fill / surface | #00e400 | #FFF7E9 | 1.63 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Good: inner keyline / fill | #000000 | #00e400 | 12.10 | 3 |  |
 | light | Good: outer keyline / paper | #000000 | #E5D7BB | 14.77 | 3 |  |
 | light | Good: outer keyline / surface | #000000 | #FFF7E9 | 19.73 | 3 |  |
-| light | Good: map outer boundary / filtered tile min | #000000 | #636363 | 3.50 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| light | Good: map outer boundary / filtered tile max | #000000 | #cecece | 13.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Good: map outer boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Good: map outer boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | light | Moderate: raw fill / paper | #ffff00 | #E5D7BB | 1.32 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Moderate: raw fill / surface | #ffff00 | #FFF7E9 | 1.01 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Moderate: inner keyline / fill | #000000 | #ffff00 | 19.56 | 3 |  |
 | light | Moderate: outer keyline / paper | #000000 | #E5D7BB | 14.77 | 3 |  |
 | light | Moderate: outer keyline / surface | #000000 | #FFF7E9 | 19.73 | 3 |  |
-| light | Moderate: map outer boundary / filtered tile min | #000000 | #636363 | 3.50 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| light | Moderate: map outer boundary / filtered tile max | #000000 | #cecece | 13.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Moderate: map outer boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Moderate: map outer boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | light | Unhealthy for sensitive groups: raw fill / paper | #ff7e00 | #E5D7BB | 1.79 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Unhealthy for sensitive groups: raw fill / surface | #ff7e00 | #FFF7E9 | 2.40 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Unhealthy for sensitive groups: inner keyline / fill | #000000 | #ff7e00 | 8.24 | 3 |  |
 | light | Unhealthy for sensitive groups: outer keyline / paper | #000000 | #E5D7BB | 14.77 | 3 |  |
 | light | Unhealthy for sensitive groups: outer keyline / surface | #000000 | #FFF7E9 | 19.73 | 3 |  |
-| light | Unhealthy for sensitive groups: map outer boundary / filtered tile min | #000000 | #636363 | 3.50 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| light | Unhealthy for sensitive groups: map outer boundary / filtered tile max | #000000 | #cecece | 13.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Unhealthy for sensitive groups: map outer boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Unhealthy for sensitive groups: map outer boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | light | Unhealthy: raw fill / paper | #ff0000 | #E5D7BB | 2.81 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Unhealthy: raw fill / surface | #ff0000 | #FFF7E9 | 3.76 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Unhealthy: inner keyline / fill | #000000 | #ff0000 | 5.25 | 3 |  |
 | light | Unhealthy: outer keyline / paper | #000000 | #E5D7BB | 14.77 | 3 |  |
 | light | Unhealthy: outer keyline / surface | #000000 | #FFF7E9 | 19.73 | 3 |  |
-| light | Unhealthy: map outer boundary / filtered tile min | #000000 | #636363 | 3.50 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| light | Unhealthy: map outer boundary / filtered tile max | #000000 | #cecece | 13.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Unhealthy: map outer boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Unhealthy: map outer boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | light | Very unhealthy: raw fill / paper | #8f3f97 | #E5D7BB | 4.44 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Very unhealthy: raw fill / surface | #8f3f97 | #FFF7E9 | 5.93 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Very unhealthy: inner keyline / fill | #ffffff | #8f3f97 | 6.31 | 3 |  |
 | light | Very unhealthy: outer keyline / paper | #000000 | #E5D7BB | 14.77 | 3 |  |
 | light | Very unhealthy: outer keyline / surface | #000000 | #FFF7E9 | 19.73 | 3 |  |
-| light | Very unhealthy: map outer boundary / filtered tile min | #000000 | #636363 | 3.50 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| light | Very unhealthy: map outer boundary / filtered tile max | #000000 | #cecece | 13.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Very unhealthy: map outer boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Very unhealthy: map outer boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | light | Hazardous: raw fill / paper | #7e0023 | #E5D7BB | 7.73 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Hazardous: raw fill / surface | #7e0023 | #FFF7E9 | 10.32 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | light | Hazardous: inner keyline / fill | #ffffff | #7e0023 | 10.99 | 3 |  |
 | light | Hazardous: outer keyline / paper | #000000 | #E5D7BB | 14.77 | 3 |  |
 | light | Hazardous: outer keyline / surface | #000000 | #FFF7E9 | 19.73 | 3 |  |
-| light | Hazardous: map outer boundary / filtered tile min | #000000 | #636363 | 3.50 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| light | Hazardous: map outer boundary / filtered tile max | #000000 | #cecece | 13.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Hazardous: map outer boundary / filtered tile min | #000000 | #606060 | 3.34 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| light | Hazardous: map outer boundary / filtered tile max | #000000 | #d0d0d0 | 13.62 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | dark | paper / paper | #211E18 | #211E18 | 1.00 | — | Background/context only; not a text pairing |
 | dark | paper / surface | #211E18 | #2D281F | 1.14 | — | Background/context only; not a text pairing |
 | dark | surface / paper | #2D281F | #211E18 | 1.14 | — | Background/context only; not a text pairing |
@@ -109,46 +112,49 @@ Light tile filter: grayscale(1) sepia(.3) brightness(.8) contrast(.4) brightness
 | dark | Filled button focus: boundary / surface | #E4D0AC | #2D281F | 9.70 | 3 |  |
 | dark | Focus ring / surface | #F7EAD0 | #2D281F | 12.29 | 3 |  |
 | dark | Focus ring / page | #F7EAD0 | #211E18 | 13.96 | 3 |  |
+| dark | Attribution text / unfiltered vellum | #2b251c | #fff7e9 | 14.26 | 5.7 |  |
+| dark | Map controls/focus boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 |  |
+| dark | Map controls/focus boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 |  |
 | dark | Inverted card text / fill | #211E18 | #F7EAD0 | 13.96 | 8.57 |  |
 | dark | Good: raw fill / paper | #00e400 | #211E18 | 9.57 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Good: raw fill / surface | #00e400 | #2D281F | 8.43 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Good: inner keyline / fill | #000000 | #00e400 | 12.10 | 3 |  |
 | dark | Good: outer keyline / paper | #FFFFFF | #211E18 | 16.62 | 3 |  |
 | dark | Good: outer keyline / surface | #FFFFFF | #2D281F | 14.64 | 3 |  |
-| dark | Good: map outer boundary / filtered tile min | #FFFFFF | #282828 | 14.74 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| dark | Good: map outer boundary / filtered tile max | #FFFFFF | #4b4b4b | 8.72 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Good: map outer boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Good: map outer boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | dark | Moderate: raw fill / paper | #ffff00 | #211E18 | 15.48 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Moderate: raw fill / surface | #ffff00 | #2D281F | 13.63 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Moderate: inner keyline / fill | #000000 | #ffff00 | 19.56 | 3 |  |
 | dark | Moderate: outer keyline / paper | #FFFFFF | #211E18 | 16.62 | 3 |  |
 | dark | Moderate: outer keyline / surface | #FFFFFF | #2D281F | 14.64 | 3 |  |
-| dark | Moderate: map outer boundary / filtered tile min | #FFFFFF | #282828 | 14.74 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| dark | Moderate: map outer boundary / filtered tile max | #FFFFFF | #4b4b4b | 8.72 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Moderate: map outer boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Moderate: map outer boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | dark | Unhealthy for sensitive groups: raw fill / paper | #ff7e00 | #211E18 | 6.52 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Unhealthy for sensitive groups: raw fill / surface | #ff7e00 | #2D281F | 5.74 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Unhealthy for sensitive groups: inner keyline / fill | #000000 | #ff7e00 | 8.24 | 3 |  |
 | dark | Unhealthy for sensitive groups: outer keyline / paper | #FFFFFF | #211E18 | 16.62 | 3 |  |
 | dark | Unhealthy for sensitive groups: outer keyline / surface | #FFFFFF | #2D281F | 14.64 | 3 |  |
-| dark | Unhealthy for sensitive groups: map outer boundary / filtered tile min | #FFFFFF | #282828 | 14.74 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| dark | Unhealthy for sensitive groups: map outer boundary / filtered tile max | #FFFFFF | #4b4b4b | 8.72 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Unhealthy for sensitive groups: map outer boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Unhealthy for sensitive groups: map outer boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | dark | Unhealthy: raw fill / paper | #ff0000 | #211E18 | 4.16 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Unhealthy: raw fill / surface | #ff0000 | #2D281F | 3.66 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Unhealthy: inner keyline / fill | #000000 | #ff0000 | 5.25 | 3 |  |
 | dark | Unhealthy: outer keyline / paper | #FFFFFF | #211E18 | 16.62 | 3 |  |
 | dark | Unhealthy: outer keyline / surface | #FFFFFF | #2D281F | 14.64 | 3 |  |
-| dark | Unhealthy: map outer boundary / filtered tile min | #FFFFFF | #282828 | 14.74 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| dark | Unhealthy: map outer boundary / filtered tile max | #FFFFFF | #4b4b4b | 8.72 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Unhealthy: map outer boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Unhealthy: map outer boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | dark | Very unhealthy: raw fill / paper | #8f3f97 | #211E18 | 2.63 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Very unhealthy: raw fill / surface | #8f3f97 | #2D281F | 2.32 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Very unhealthy: inner keyline / fill | #ffffff | #8f3f97 | 6.31 | 3 |  |
 | dark | Very unhealthy: outer keyline / paper | #FFFFFF | #211E18 | 16.62 | 3 |  |
 | dark | Very unhealthy: outer keyline / surface | #FFFFFF | #2D281F | 14.64 | 3 |  |
-| dark | Very unhealthy: map outer boundary / filtered tile min | #FFFFFF | #282828 | 14.74 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| dark | Very unhealthy: map outer boundary / filtered tile max | #FFFFFF | #4b4b4b | 8.72 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Very unhealthy: map outer boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Very unhealthy: map outer boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 | Tile-filter output bound, covers every original sRGB pixel |
 | dark | Hazardous: raw fill / paper | #7e0023 | #211E18 | 1.51 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Hazardous: raw fill / surface | #7e0023 | #2D281F | 1.33 | — | Diagnostic: fill alone may fail; not the boundary treatment |
 | dark | Hazardous: inner keyline / fill | #ffffff | #7e0023 | 10.99 | 3 |  |
 | dark | Hazardous: outer keyline / paper | #FFFFFF | #211E18 | 16.62 | 3 |  |
 | dark | Hazardous: outer keyline / surface | #FFFFFF | #2D281F | 14.64 | 3 |  |
-| dark | Hazardous: map outer boundary / filtered tile min | #FFFFFF | #282828 | 14.74 | 3 | Tile-filter output bound, covers every original sRGB pixel |
-| dark | Hazardous: map outer boundary / filtered tile max | #FFFFFF | #4b4b4b | 8.72 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Hazardous: map outer boundary / filtered tile min | #FFFFFF | #262626 | 15.13 | 3 | Tile-filter output bound, covers every original sRGB pixel |
+| dark | Hazardous: map outer boundary / filtered tile max | #FFFFFF | #4d4d4d | 8.45 | 3 | Tile-filter output bound, covers every original sRGB pixel |

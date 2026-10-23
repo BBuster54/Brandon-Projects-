@@ -134,7 +134,7 @@
             the directory.
           </p>
           <div class="map-stage">
-            <details id="filter-disclosure" class="filter-dock" open>
+            <details id="filter-disclosure" class="filter-dock">
               <summary>City and map filters</summary>
               <div class="controls">
                 <div>
@@ -204,13 +204,13 @@
           <div class="city-heading">
             <h2 id="city-title">New York City</h2>
             <p id="city-subtitle">NY · America/New_York</p>
+            <div id="headline-source"></div>
           </div>
           <div class="aqi-headline">
             <p class="small">Modeled air quality</p>
             <p class="aqi-number" id="aqi-value">—</p>
             <p id="aqi-status">No current reading</p>
             <p id="aqi-time" class="small">Modeled air quality not available</p>
-            <div id="headline-source"></div>
           </div>
           <div
             id="metric-list"
@@ -222,6 +222,7 @@
       <section class="section ranked" aria-labelledby="rank-title">
         <div class="section-heading">
           <h2 id="rank-title">US Air Quality Index across cities</h2>
+          <span id="rank-source" class="source-badge"></span>
           <div>
             <label for="sort">Sort values</label
             ><select id="sort">
@@ -239,6 +240,9 @@
       <section class="section" aria-labelledby="compare-title">
         <div class="section-heading">
           <h2 id="compare-title">Compare two cities</h2>
+          <span id="compare-source" class="source-badge"
+            >Modeled + official estimates</span
+          >
           <div>
             <label for="compare">Second city</label
             ><select id="compare"></select>
@@ -258,7 +262,10 @@
         ></div>
       </section>
       <section class="section" aria-labelledby="trend-title">
-        <h2 id="trend-title">Recent modeled AQI</h2>
+        <div class="section-heading">
+          <h2 id="trend-title">Recent modeled AQI</h2>
+          <div id="trend-source"></div>
+        </div>
         <div id="trend"></div>
       </section>
       <section class="section export-actions" aria-label="Share and export">

@@ -1,4 +1,5 @@
 const formats = new Map();
+const timeFormats = new Map();
 export function format(value, digits = 1) {
   if (value === null || value === undefined || !Number.isFinite(Number(value)))
     return "—";
@@ -15,15 +16,28 @@ export function node(tag, text, className) {
   if (className) e.className = className;
   return e;
 }
+export function measurement(value, unit) {
+  const result = node("span");
+  result.append(
+    node("span", format(value), "figure"),
+    node("span", " " + unit),
+  );
+  return result;
+}
 export function localTime(timestamp, city) {
   if (!timestamp || !Number.isFinite(Date.parse(timestamp)))
     return "Observation date unknown";
-  return new Intl.DateTimeFormat("en-US", {
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    timeZone: city.timeZone,
-    timeZoneName: "short",
-  }).format(new Date(timestamp));
+  if (!timeFormats.has(city.timeZone))
+    timeFormats.set(
+      city.timeZone,
+      new Intl.DateTimeFormat("en-US", {
+        month: "short",
+        day: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        timeZone: city.timeZone,
+        timeZoneName: "short",
+      }),
+    );
+  return timeFormats.get(city.timeZone).format(new Date(timestamp));
 }
