@@ -1,0 +1,37 @@
+{
+  "name": "urban-insight",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "vitest run",
+    "lint": "eslint js scripts tests",
+    "serve": "python3 -m http.server 4180",
+    "test:browser": "node tests/browser.mjs",
+    "test:presentation": "node tests/presentation.mjs",
+    "test:keyboard": "node tests/keyboard-atlas.mjs",
+    "fetch:acs": "node scripts/fetch-acs.mjs",
+    "sync": "node scripts/sync-portfolio.mjs",
+    "check:sync": "node scripts/sync-portfolio.mjs --check",
+    "contrast": "node scripts/check-contrast.mjs",
+    "build:presentation": "node scripts/build-presentation.mjs",
+    "check:presentation": "node scripts/build-presentation.mjs --check && node scripts/check-presentation.mjs",
+    "lighthouse": "node scripts/run-lighthouse.mjs"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.0",
+    "@fontsource/fraunces": "^5.2.8",
+    "@fontsource/jetbrains-mono": "^5.2.8",
+    "@fontsource/source-sans-3": "^5.2.5",
+    "@lhci/cli": "0.15.1",
+    "@playwright/test": "1.56.1",
+    "esbuild": "0.28.2",
+    "eslint": "^9.39.0",
+    "globals": "^16.5.0",
+    "leaflet": "1.9.4",
+    "leaflet-gesture-handling": "1.2.2",
+    "puppeteer-core": "^24.37.2",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.5"
+  }
+}

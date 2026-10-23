@@ -1,0 +1,22 @@
+{
+  "light": {
+    "paper": "#E5D7BB",
+    "surface": "#FFF7E9",
+    "ink": "#2B251C",
+    "muted": "#534B3F",
+    "accent": "#4B4232",
+    "control": "#6A5E4C",
+    "buttonText": "#FFF7E9",
+    "edge": "#000000"
+  },
+  "dark": {
+    "paper": "#211E18",
+    "surface": "#2D281F",
+    "ink": "#F7EAD0",
+    "muted": "#D8C7A7",
+    "accent": "#E4D0AC",
+    "control": "#B4A184",
+    "buttonText": "#211E18",
+    "edge": "#FFFFFF"
+  }
+}

@@ -1,0 +1,1624 @@
+{
+  "version": "2.0.0",
+  "status": "loaded",
+  "vintage": 2024,
+  "retrievedAt": "2026-10-20T17:58:57.435Z",
+  "tables": ["B01003", "B25077", "B25064", "B25070", "B08301", "B08303"],
+  "cities": {
+    "nyc": {
+      "name": "New York city, New York",
+      "metrics": {
+        "population": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B01003",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B01003%29&for=place%3A51000&in=state%3A36",
+          "table": "B01003",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 8483844,
+          "unit": "people",
+          "marginOfError": null,
+          "method": "Total resident population; five-year survey estimate."
+        },
+        "homeValue": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25077",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25077%29&for=place%3A51000&in=state%3A36",
+          "table": "B25077",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 777600,
+          "unit": "USD",
+          "marginOfError": 4889,
+          "method": "Median homeowner-reported value of owner-occupied housing, not a market sale price."
+        },
+        "rent": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25064",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25064%29&for=place%3A51000&in=state%3A36",
+          "table": "B25064",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 1821,
+          "unit": "USD/month",
+          "marginOfError": 7,
+          "method": "Median monthly gross rent, including utilities."
+        },
+        "rentBurden": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25070",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25070%29&for=place%3A51000&in=state%3A36",
+          "table": "B25070",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 52.4099255895308,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 2241032,
+              "marginOfError": 8651,
+              "annotation": null
+            },
+            "7": {
+              "estimate": 190368,
+              "marginOfError": 4482,
+              "annotation": null
+            },
+            "8": {
+              "estimate": 132874,
+              "marginOfError": 3317,
+              "annotation": null
+            },
+            "9": {
+              "estimate": 176773,
+              "marginOfError": 4263,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 616427,
+              "marginOfError": 7241,
+              "annotation": null
+            },
+            "11": {
+              "estimate": 110821,
+              "marginOfError": 3240,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 30–34.9%, 35–39.9%, 40–49.9% and 50%+ bins, divided by total renter households minus not-computed households. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "car": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A51000&in=state%3A36",
+          "table": "B08301",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 25.858861560707112,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3926797,
+              "marginOfError": 10429,
+              "annotation": null
+            },
+            "2": {
+              "estimate": 1015425,
+              "marginOfError": 8961,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "transit": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A51000&in=state%3A36",
+          "table": "B08301",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 44.00823368256622,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3926797,
+              "marginOfError": 10429,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 1728114,
+              "marginOfError": 10584,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "bike": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A51000&in=state%3A36",
+          "table": "B08301",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 1.5852360078710461,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3926797,
+              "marginOfError": 10429,
+              "annotation": null
+            },
+            "18": {
+              "estimate": 62249,
+              "marginOfError": 2498,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "walk": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A51000&in=state%3A36",
+          "table": "B08301",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 9.225228602344353,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3926797,
+              "marginOfError": 10429,
+              "annotation": null
+            },
+            "19": {
+              "estimate": 362256,
+              "marginOfError": 6594,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "home": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A51000&in=state%3A36",
+          "table": "B08301",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 16.892826392604455,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3926797,
+              "marginOfError": 10429,
+              "annotation": null
+            },
+            "21": {
+              "estimate": 663347,
+              "marginOfError": 9165,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "other": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A51000&in=state%3A36",
+          "table": "B08301",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 2.42961375390681,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3926797,
+              "marginOfError": 10429,
+              "annotation": null
+            },
+            "16": {
+              "estimate": 43641,
+              "marginOfError": 2318,
+              "annotation": null
+            },
+            "17": {
+              "estimate": 4317,
+              "marginOfError": 733,
+              "annotation": null
+            },
+            "20": {
+              "estimate": 47448,
+              "marginOfError": 2254,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "longCommute": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08303",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08303%29&for=place%3A51000&in=state%3A36",
+          "table": "B08303",
+          "geography": {
+            "state": "36",
+            "place": "51000"
+          },
+          "value": 25.301444790022828,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 3263450,
+              "marginOfError": 12564,
+              "annotation": null
+            },
+            "12": {
+              "estimate": 598966,
+              "marginOfError": 6897,
+              "annotation": null
+            },
+            "13": {
+              "estimate": 226734,
+              "marginOfError": 4493,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 60–89 and 90+ minute bins divided by workers who commute. No mean travel time is inferred from bins. Component published 90% margins are retained; no derived percentage margin is claimed."
+        }
+      }
+    },
+    "la": {
+      "name": "Los Angeles city, California",
+      "metrics": {
+        "population": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B01003",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B01003%29&for=place%3A44000&in=state%3A06",
+          "table": "B01003",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 3857263,
+          "unit": "people",
+          "marginOfError": 151,
+          "method": "Total resident population; five-year survey estimate."
+        },
+        "homeValue": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25077",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25077%29&for=place%3A44000&in=state%3A06",
+          "table": "B25077",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 921200,
+          "unit": "USD",
+          "marginOfError": 4782,
+          "method": "Median homeowner-reported value of owner-occupied housing, not a market sale price."
+        },
+        "rent": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25064",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25064%29&for=place%3A44000&in=state%3A06",
+          "table": "B25064",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 1933,
+          "unit": "USD/month",
+          "marginOfError": 9,
+          "method": "Median monthly gross rent, including utilities."
+        },
+        "rentBurden": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25070",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25070%29&for=place%3A44000&in=state%3A06",
+          "table": "B25070",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 59.253285740789856,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 920674,
+              "marginOfError": 5310,
+              "annotation": null
+            },
+            "7": {
+              "estimate": 81568,
+              "marginOfError": 2582,
+              "annotation": null
+            },
+            "8": {
+              "estimate": 62422,
+              "marginOfError": 2181,
+              "annotation": null
+            },
+            "9": {
+              "estimate": 90520,
+              "marginOfError": 2104,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 286071,
+              "marginOfError": 4762,
+              "annotation": null
+            },
+            "11": {
+              "estimate": 42105,
+              "marginOfError": 1684,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 30–34.9%, 35–39.9%, 40–49.9% and 50%+ bins, divided by total renter households minus not-computed households. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "car": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A44000&in=state%3A06",
+          "table": "B08301",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 68.51274264806672,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1896780,
+              "marginOfError": 7372,
+              "annotation": null
+            },
+            "2": {
+              "estimate": 1299536,
+              "marginOfError": 7313,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "transit": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A44000&in=state%3A06",
+          "table": "B08301",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 6.109775514292643,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1896780,
+              "marginOfError": 7372,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 115889,
+              "marginOfError": 3240,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "bike": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A44000&in=state%3A06",
+          "table": "B08301",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 0.586836638935459,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1896780,
+              "marginOfError": 7372,
+              "annotation": null
+            },
+            "18": {
+              "estimate": 11131,
+              "marginOfError": 949,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "walk": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A44000&in=state%3A06",
+          "table": "B08301",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 3.1880344583979165,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1896780,
+              "marginOfError": 7372,
+              "annotation": null
+            },
+            "19": {
+              "estimate": 60470,
+              "marginOfError": 2255,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "home": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A44000&in=state%3A06",
+          "table": "B08301",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 19.523455540442225,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1896780,
+              "marginOfError": 7372,
+              "annotation": null
+            },
+            "21": {
+              "estimate": 370317,
+              "marginOfError": 4702,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "other": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A44000&in=state%3A06",
+          "table": "B08301",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 2.0791551998650344,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1896780,
+              "marginOfError": 7372,
+              "annotation": null
+            },
+            "16": {
+              "estimate": 7771,
+              "marginOfError": 743,
+              "annotation": null
+            },
+            "17": {
+              "estimate": 3827,
+              "marginOfError": 433,
+              "annotation": null
+            },
+            "20": {
+              "estimate": 27839,
+              "marginOfError": 1664,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "longCommute": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08303",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08303%29&for=place%3A44000&in=state%3A06",
+          "table": "B08303",
+          "geography": {
+            "state": "06",
+            "place": "44000"
+          },
+          "value": 11.948668261202531,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1526463,
+              "marginOfError": 7728,
+              "annotation": null
+            },
+            "12": {
+              "estimate": 134921,
+              "marginOfError": 2807,
+              "annotation": null
+            },
+            "13": {
+              "estimate": 47471,
+              "marginOfError": 1954,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 60–89 and 90+ minute bins divided by workers who commute. No mean travel time is inferred from bins. Component published 90% margins are retained; no derived percentage margin is claimed."
+        }
+      }
+    },
+    "chi": {
+      "name": "Chicago city, Illinois",
+      "metrics": {
+        "population": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B01003",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B01003%29&for=place%3A14000&in=state%3A17",
+          "table": "B01003",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 2711226,
+          "unit": "people",
+          "marginOfError": 63,
+          "method": "Total resident population; five-year survey estimate."
+        },
+        "homeValue": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25077",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25077%29&for=place%3A14000&in=state%3A17",
+          "table": "B25077",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 334100,
+          "unit": "USD",
+          "marginOfError": 2424,
+          "method": "Median homeowner-reported value of owner-occupied housing, not a market sale price."
+        },
+        "rent": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25064",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25064%29&for=place%3A14000&in=state%3A17",
+          "table": "B25064",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 1440,
+          "unit": "USD/month",
+          "marginOfError": 10,
+          "method": "Median monthly gross rent, including utilities."
+        },
+        "rentBurden": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25070",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25070%29&for=place%3A14000&in=state%3A17",
+          "table": "B25070",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 48.34770807845447,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 626193,
+              "marginOfError": 5603,
+              "annotation": null
+            },
+            "7": {
+              "estimate": 53561,
+              "marginOfError": 2460,
+              "annotation": null
+            },
+            "8": {
+              "estimate": 34485,
+              "marginOfError": 2134,
+              "annotation": null
+            },
+            "9": {
+              "estimate": 47260,
+              "marginOfError": 2070,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 150413,
+              "marginOfError": 4045,
+              "annotation": null
+            },
+            "11": {
+              "estimate": 35226,
+              "marginOfError": 2037,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 30–34.9%, 35–39.9%, 40–49.9% and 50%+ bins, divided by total renter households minus not-computed households. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "car": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A14000&in=state%3A17",
+          "table": "B08301",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 52.09753101440523,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1364366,
+              "marginOfError": 7536,
+              "annotation": null
+            },
+            "2": {
+              "estimate": 710801,
+              "marginOfError": 7773,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "transit": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A14000&in=state%3A17",
+          "table": "B08301",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 17.702874448645012,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1364366,
+              "marginOfError": 7536,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 241532,
+              "marginOfError": 5250,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "bike": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A14000&in=state%3A17",
+          "table": "B08301",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 1.4153826759095434,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1364366,
+              "marginOfError": 7536,
+              "annotation": null
+            },
+            "18": {
+              "estimate": 19311,
+              "marginOfError": 1337,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "walk": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A14000&in=state%3A17",
+          "table": "B08301",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 5.806653053506171,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1364366,
+              "marginOfError": 7536,
+              "annotation": null
+            },
+            "19": {
+              "estimate": 79224,
+              "marginOfError": 2809,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "home": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A14000&in=state%3A17",
+          "table": "B08301",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 20.987990026136682,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1364366,
+              "marginOfError": 7536,
+              "annotation": null
+            },
+            "21": {
+              "estimate": 286353,
+              "marginOfError": 5691,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "other": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A14000&in=state%3A17",
+          "table": "B08301",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 1.989568781397367,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1364366,
+              "marginOfError": 7536,
+              "annotation": null
+            },
+            "16": {
+              "estimate": 10620,
+              "marginOfError": 1048,
+              "annotation": null
+            },
+            "17": {
+              "estimate": 727,
+              "marginOfError": 188,
+              "annotation": null
+            },
+            "20": {
+              "estimate": 15798,
+              "marginOfError": 1394,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "longCommute": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08303",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08303%29&for=place%3A14000&in=state%3A17",
+          "table": "B08303",
+          "geography": {
+            "state": "17",
+            "place": "14000"
+          },
+          "value": 13.445106877189792,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1078013,
+              "marginOfError": 8368,
+              "annotation": null
+            },
+            "12": {
+              "estimate": 111427,
+              "marginOfError": 3422,
+              "annotation": null
+            },
+            "13": {
+              "estimate": 33513,
+              "marginOfError": 1833,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 60–89 and 90+ minute bins divided by workers who commute. No mean travel time is inferred from bins. Component published 90% margins are retained; no derived percentage margin is claimed."
+        }
+      }
+    },
+    "hou": {
+      "name": "Houston city, Texas",
+      "metrics": {
+        "population": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B01003",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B01003%29&for=place%3A35000&in=state%3A48",
+          "table": "B01003",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 2328253,
+          "unit": "people",
+          "marginOfError": 196,
+          "method": "Total resident population; five-year survey estimate."
+        },
+        "homeValue": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25077",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25077%29&for=place%3A35000&in=state%3A48",
+          "table": "B25077",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 277800,
+          "unit": "USD",
+          "marginOfError": 3403,
+          "method": "Median homeowner-reported value of owner-occupied housing, not a market sale price."
+        },
+        "rent": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25064",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25064%29&for=place%3A35000&in=state%3A48",
+          "table": "B25064",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 1361,
+          "unit": "USD/month",
+          "marginOfError": 8,
+          "method": "Median monthly gross rent, including utilities."
+        },
+        "rentBurden": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25070",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25070%29&for=place%3A35000&in=state%3A48",
+          "table": "B25070",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 54.06213595259153,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 538885,
+              "marginOfError": 4871,
+              "annotation": null
+            },
+            "7": {
+              "estimate": 49244,
+              "marginOfError": 2237,
+              "annotation": null
+            },
+            "8": {
+              "estimate": 38415,
+              "marginOfError": 1847,
+              "annotation": null
+            },
+            "9": {
+              "estimate": 49894,
+              "marginOfError": 2624,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 139962,
+              "marginOfError": 3587,
+              "annotation": null
+            },
+            "11": {
+              "estimate": 25559,
+              "marginOfError": 1443,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 30–34.9%, 35–39.9%, 40–49.9% and 50%+ bins, divided by total renter households minus not-computed households. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "car": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A35000&in=state%3A48",
+          "table": "B08301",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 78.28745905458322,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1124668,
+              "marginOfError": 8203,
+              "annotation": null
+            },
+            "2": {
+              "estimate": 880474,
+              "marginOfError": 7837,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "transit": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A35000&in=state%3A48",
+          "table": "B08301",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 3.1676014610533954,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1124668,
+              "marginOfError": 8203,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 35625,
+              "marginOfError": 1936,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "bike": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A35000&in=state%3A48",
+          "table": "B08301",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 0.4778299018021318,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1124668,
+              "marginOfError": 8203,
+              "annotation": null
+            },
+            "18": {
+              "estimate": 5374,
+              "marginOfError": 811,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "walk": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A35000&in=state%3A48",
+          "table": "B08301",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 2.0299323889361127,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1124668,
+              "marginOfError": 8203,
+              "annotation": null
+            },
+            "19": {
+              "estimate": 22830,
+              "marginOfError": 1545,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "home": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A35000&in=state%3A48",
+          "table": "B08301",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 13.010684041868355,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1124668,
+              "marginOfError": 8203,
+              "annotation": null
+            },
+            "21": {
+              "estimate": 146327,
+              "marginOfError": 3929,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "other": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A35000&in=state%3A48",
+          "table": "B08301",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 3.0264931517567852,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 1124668,
+              "marginOfError": 8203,
+              "annotation": null
+            },
+            "16": {
+              "estimate": 4914,
+              "marginOfError": 780,
+              "annotation": null
+            },
+            "17": {
+              "estimate": 1022,
+              "marginOfError": 455,
+              "annotation": null
+            },
+            "20": {
+              "estimate": 28102,
+              "marginOfError": 2000,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "longCommute": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08303",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08303%29&for=place%3A35000&in=state%3A48",
+          "table": "B08303",
+          "geography": {
+            "state": "48",
+            "place": "35000"
+          },
+          "value": 7.364303448388649,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 978341,
+              "marginOfError": 7818,
+              "annotation": null
+            },
+            "12": {
+              "estimate": 53246,
+              "marginOfError": 2677,
+              "annotation": null
+            },
+            "13": {
+              "estimate": 18802,
+              "marginOfError": 1447,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 60–89 and 90+ minute bins divided by workers who commute. No mean travel time is inferred from bins. Component published 90% margins are retained; no derived percentage margin is claimed."
+        }
+      }
+    },
+    "phx": {
+      "name": "Phoenix city, Arizona",
+      "metrics": {
+        "population": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B01003",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B01003%29&for=place%3A55000&in=state%3A04",
+          "table": "B01003",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 1642323,
+          "unit": "people",
+          "marginOfError": 179,
+          "method": "Total resident population; five-year survey estimate."
+        },
+        "homeValue": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25077",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25077%29&for=place%3A55000&in=state%3A04",
+          "table": "B25077",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 420700,
+          "unit": "USD",
+          "marginOfError": 3431,
+          "method": "Median homeowner-reported value of owner-occupied housing, not a market sale price."
+        },
+        "rent": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25064",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25064%29&for=place%3A55000&in=state%3A04",
+          "table": "B25064",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 1582,
+          "unit": "USD/month",
+          "marginOfError": 14,
+          "method": "Median monthly gross rent, including utilities."
+        },
+        "rentBurden": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B25070",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B25070%29&for=place%3A55000&in=state%3A04",
+          "table": "B25070",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 51.757065534452586,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 260441,
+              "marginOfError": 3498,
+              "annotation": null
+            },
+            "7": {
+              "estimate": 22053,
+              "marginOfError": 1552,
+              "annotation": null
+            },
+            "8": {
+              "estimate": 19326,
+              "marginOfError": 1400,
+              "annotation": null
+            },
+            "9": {
+              "estimate": 25179,
+              "marginOfError": 1614,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 61195,
+              "marginOfError": 2092,
+              "annotation": null
+            },
+            "11": {
+              "estimate": 13609,
+              "marginOfError": 965,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 30–34.9%, 35–39.9%, 40–49.9% and 50%+ bins, divided by total renter households minus not-computed households. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "car": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A55000&in=state%3A04",
+          "table": "B08301",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 75.00946844054181,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 829070,
+              "marginOfError": 5768,
+              "annotation": null
+            },
+            "2": {
+              "estimate": 621881,
+              "marginOfError": 6321,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "transit": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A55000&in=state%3A04",
+          "table": "B08301",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 1.9106951162145536,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 829070,
+              "marginOfError": 5768,
+              "annotation": null
+            },
+            "10": {
+              "estimate": 15841,
+              "marginOfError": 1477,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "bike": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A55000&in=state%3A04",
+          "table": "B08301",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 0.40008684429541536,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 829070,
+              "marginOfError": 5768,
+              "annotation": null
+            },
+            "18": {
+              "estimate": 3317,
+              "marginOfError": 603,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "walk": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A55000&in=state%3A04",
+          "table": "B08301",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 1.5027681619163642,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 829070,
+              "marginOfError": 5768,
+              "annotation": null
+            },
+            "19": {
+              "estimate": 12459,
+              "marginOfError": 1098,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "home": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A55000&in=state%3A04",
+          "table": "B08301",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 19.027946976732967,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 829070,
+              "marginOfError": 5768,
+              "annotation": null
+            },
+            "21": {
+              "estimate": 157755,
+              "marginOfError": 3572,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "other": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08301",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08301%29&for=place%3A55000&in=state%3A04",
+          "table": "B08301",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 2.149034460298889,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 829070,
+              "marginOfError": 5768,
+              "annotation": null
+            },
+            "16": {
+              "estimate": 2841,
+              "marginOfError": 486,
+              "annotation": null
+            },
+            "17": {
+              "estimate": 1573,
+              "marginOfError": 337,
+              "annotation": null
+            },
+            "20": {
+              "estimate": 13403,
+              "marginOfError": 1342,
+              "annotation": null
+            }
+          },
+          "method": "Share of workers age 16+ using this mode; working from home is included in the denominator. Component published 90% margins are retained; no derived percentage margin is claimed."
+        },
+        "longCommute": {
+          "kind": "official",
+          "vintage": 2024,
+          "asOf": "2020–2024",
+          "retrievedAt": "2026-10-20T17:58:57.435Z",
+          "source": "US Census Bureau · ACS 2024 5-year · B08303",
+          "sourceUrl": "https://api.census.gov/data/2024/acs/acs5?get=NAME%2Cgroup%28B08303%29&for=place%3A55000&in=state%3A04",
+          "table": "B08303",
+          "geography": {
+            "state": "04",
+            "place": "55000"
+          },
+          "value": 5.831837512941019,
+          "unit": "%",
+          "marginOfError": null,
+          "components": {
+            "1": {
+              "estimate": 671315,
+              "marginOfError": 6508,
+              "annotation": null
+            },
+            "12": {
+              "estimate": 27849,
+              "marginOfError": 1879,
+              "annotation": null
+            },
+            "13": {
+              "estimate": 11301,
+              "marginOfError": 1006,
+              "annotation": null
+            }
+          },
+          "method": "Sum of 60–89 and 90+ minute bins divided by workers who commute. No mean travel time is inferred from bins. Component published 90% margins are retained; no derived percentage margin is claimed."
+        }
+      }
+    }
+  }
+}
