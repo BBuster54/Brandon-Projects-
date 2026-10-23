@@ -25,6 +25,20 @@ for (const width of [375, 768, 1440]) {
     () => !document.querySelector("#refresh").disabled,
   );
   const steps = [];
+  async function choose(id, letter, value, last = false) {
+    // Native Chromium popup keyboard handling differs on macOS and Linux.
+    // Both paths use real key events and retain the same expected selection.
+    if (process.platform === "darwin") await page.keyboard.type(letter);
+    else {
+      await page.keyboard.press(last ? "End" : "Home");
+      if (!last) await page.keyboard.press("ArrowDown");
+    }
+    await page.waitForFunction(
+      ([id, value]) => document.querySelector("#" + id).value === value,
+      [id, value],
+      { timeout: 5000 },
+    );
+  }
   async function reach(predicate, label) {
     for (let i = 0; i < 200; i++) {
       if (await page.evaluate(predicate)) {
@@ -63,16 +77,16 @@ for (const width of [375, 768, 1440]) {
     await page.keyboard.press("Enter");
   }
   await reach(() => document.activeElement.id === "city", "City selector");
-  await page.keyboard.press("l");
+  await choose("city", "l", "la");
   assert.equal(await page.locator("#city").inputValue(), "la");
   await reach(() => document.activeElement.id === "metric", "Metric selector");
-  await page.keyboard.press("p");
+  await choose("metric", "p", "pm25");
   assert.equal(await page.locator("#metric").inputValue(), "pm25");
   await reach(
     () => document.activeElement.id === "category",
     "AQI category filter",
   );
-  await page.keyboard.press("g");
+  await choose("category", "g", "good");
   assert.match(await page.locator("#visible-count").textContent(), /0/);
   await reach(() => document.activeElement.id === "reset", "Reset");
   await page.keyboard.press("Enter");
@@ -95,7 +109,7 @@ for (const width of [375, 768, 1440]) {
     () => document.activeElement.id === "compare",
     "Compare selector",
   );
-  await page.keyboard.press("p");
+  await choose("compare", "p", "phx", true);
   assert.equal(await page.locator("#compare").inputValue(), "phx");
   assert.match(page.url(), /compare=phx/);
   await reach(() => document.activeElement.id === "export", "CSV export");
